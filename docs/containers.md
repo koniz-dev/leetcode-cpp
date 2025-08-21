@@ -485,3 +485,181 @@ float maxLoadFactor = seen.max_load_factor();
 | Delete | O(1) | O(n) |
 | Search | O(1) | O(n) |
 | Access | O(1) | O(n) |
+
+## Unordered Set
+
+### Introduction
+`unordered_set` is a container that stores unique elements in no particular order. It uses a hash table implementation for O(1) average time complexity operations.
+
+### Declaration and Initialization
+
+```cpp
+#include <unordered_set>
+
+// Basic declaration
+std::unordered_set<int> numbers;
+
+// Initialize from list
+std::unordered_set<int> set = {1, 2, 3, 4, 5};
+
+// Copy from another set
+std::unordered_set<int> set2 = set;
+```
+
+### Basic Methods
+
+#### Adding Elements
+```cpp
+std::unordered_set<int> set;
+
+// Insert single element
+set.insert(10);
+set.insert(20);
+
+// Insert multiple elements
+set.insert({30, 40, 50});
+
+// Insert with return value
+auto result = set.insert(10);  // Returns pair<iterator, bool>
+if (result.second) {
+    std::cout << "Element inserted successfully" << std::endl;
+} else {
+    std::cout << "Element already exists" << std::endl;
+}
+```
+
+#### Checking Membership
+```cpp
+std::unordered_set<int> set = {1, 2, 3, 4, 5};
+
+// Check if element exists
+if (set.find(3) != set.end()) {
+    std::cout << "3 is in the set" << std::endl;
+}
+
+// Count occurrences (0 or 1 for sets)
+size_t count = set.count(3);  // Returns 1 if exists, 0 otherwise
+
+// Check if empty
+bool isEmpty = set.empty();
+```
+
+#### Removing Elements
+```cpp
+std::unordered_set<int> set = {1, 2, 3, 4, 5};
+
+// Remove by value
+set.erase(3);
+
+// Remove by iterator
+auto it = set.find(2);
+if (it != set.end()) {
+    set.erase(it);
+}
+
+// Remove all elements
+set.clear();
+```
+
+#### Set Information
+```cpp
+std::unordered_set<int> set = {1, 2, 3, 4, 5};
+
+// Current size
+size_t size = set.size();
+
+// Check if set is empty
+bool isEmpty = set.empty();
+
+// Maximum size
+size_t maxSize = set.max_size();
+```
+
+### Iteration
+
+```cpp
+std::unordered_set<int> set = {1, 2, 3, 4, 5};
+
+// Range-based for loop
+for (int num : set) {
+    std::cout << num << " ";
+}
+
+// Iterator-based loop
+for (std::unordered_set<int>::iterator it = set.begin(); 
+     it != set.end(); ++it) {
+    std::cout << *it << " ";
+}
+```
+
+### Common Use Cases
+
+#### Contains Duplicate Problem
+```cpp
+#include <vector>
+#include <unordered_set>
+
+bool containsDuplicate(std::vector<int>& nums) {
+    std::unordered_set<int> seen;
+    
+    for (int num : nums) {
+        if (seen.find(num) != seen.end()) {
+            return true;  // Duplicate found
+        }
+        seen.insert(num);
+    }
+    
+    return false;  // No duplicates
+}
+```
+
+#### Finding Unique Elements
+```cpp
+#include <vector>
+#include <unordered_set>
+
+std::vector<int> getUniqueElements(const std::vector<int>& nums) {
+    std::unordered_set<int> uniqueSet(nums.begin(), nums.end());
+    return std::vector<int>(uniqueSet.begin(), uniqueSet.end());
+}
+```
+
+### Performance Considerations
+
+#### Hash Function
+- **Hash function**: unordered_set uses hash function for element type
+- **Collision handling**: Uses chaining or open addressing
+- **Load factor**: Affects performance, can be adjusted
+
+#### Memory Management
+```cpp
+#include <unordered_set>
+
+std::unordered_set<int> set;
+
+// Reserve space to avoid rehashing
+set.reserve(1000);
+
+// Check load factor
+float loadFactor = set.load_factor();
+float maxLoadFactor = set.max_load_factor();
+```
+
+### Comparison: Set vs Unordered Set
+
+| Feature | unordered_set | set |
+|---------|---------------|-----|
+| Implementation | Hash table | Red-black tree |
+| Order | Unordered | Sorted |
+| Time complexity | O(1) average | O(log n) |
+| Space complexity | O(n) | O(n) |
+| Element requirements | Hashable | Comparable |
+
+### Time Complexity Summary
+
+| Operation | Average | Worst Case |
+|-----------|---------|------------|
+| Insert | O(1) | O(n) |
+| Delete | O(1) | O(n) |
+| Search | O(1) | O(n) |
+| Access | O(1) | O(n) |
