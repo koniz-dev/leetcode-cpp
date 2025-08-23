@@ -25,143 +25,136 @@ Output: true
 ```
 
 ### Constraints
-
 - `1 <= nums.length <= 10^5`
 - `-10^9 <= nums[i] <= 10^9`
 
 ## Solution Approaches
 
 ### Approach 1: Hash Set (Recommended)
-
-**Algorithm:**
-1. Create an unordered_set to track seen numbers
-2. Iterate through the array
-3. For each number, check if it's already in the set
-4. If found, return true (duplicate exists)
-5. If not found, add to set and continue
-6. If loop completes, return false (no duplicates)
-
 **Time Complexity:** O(n)  
 **Space Complexity:** O(n)
 
-**Code:**
+Use an `unordered_set` to track seen elements. If we encounter an element that's already in the set, we've found a duplicate.
+
 ```cpp
 bool containsDuplicate(vector<int>& nums) {
     unordered_set<int> seen;
     
     for (int num : nums) {
         if (seen.find(num) != seen.end()) {
-            return true;
+            return true;  // Duplicate found
         }
         seen.insert(num);
     }
     
-    return false;
+    return false;  // No duplicates
 }
 ```
 
-### Approach 2: Sorting
+**Key Points:**
+- Most efficient approach for this problem
+- Uses hash set for O(1) average lookup time
+- Single pass through the array
 
-**Algorithm:**
-1. Sort the array in ascending order
-2. Compare adjacent elements
-3. If any adjacent elements are equal, return true
-4. Otherwise, return false
+### Approach 2: Hash Map (Alternative)
+**Time Complexity:** O(n)  
+**Space Complexity:** O(n)
 
-**Time Complexity:** O(n log n)  
-**Space Complexity:** O(1) (if we can modify input array)
+Use an `unordered_map` to count occurrences. Return true if any element appears more than once.
 
-**Code:**
 ```cpp
-bool containsDuplicateSorting(vector<int>& nums) {
+bool containsDuplicateMap(vector<int>& nums) {
+    unordered_map<int, int> count;
+    
+    for (int num : nums) {
+        count[num]++;
+        if (count[num] > 1) {
+            return true;  // Duplicate found
+        }
+    }
+    
+    return false;  // No duplicates
+}
+```
+
+**Key Points:**
+- Similar time/space complexity to hash set approach
+- Useful when you need to track frequency of elements
+- Slightly more memory usage than hash set
+
+### Approach 3: Sorting
+**Time Complexity:** O(n log n)  
+**Space Complexity:** O(1) (if input can be modified)
+
+Sort the array and check adjacent elements for duplicates.
+
+```cpp
+bool containsDuplicateSort(vector<int>& nums) {
     sort(nums.begin(), nums.end());
     
     for (int i = 1; i < nums.size(); i++) {
         if (nums[i] == nums[i-1]) {
-            return true;
+            return true;  // Duplicate found
         }
     }
     
-    return false;
+    return false;  // No duplicates
 }
 ```
 
-### Approach 3: Brute Force
+**Key Points:**
+- Constant space complexity (if input modification is allowed)
+- Slower time complexity due to sorting
+- Useful when memory is extremely limited
 
-**Algorithm:**
-1. Use nested loops to compare each element with every other element
-2. If any two elements are equal, return true
-3. Otherwise, return false
+## C++ Concepts Used
 
-**Time Complexity:** O(n²)  
-**Space Complexity:** O(1)
+### Containers
+- **`vector<int>`**: Dynamic array to store input numbers
+- **`unordered_set<int>`**: Hash set for O(1) average lookup time
+- **`unordered_map<int, int>`**: Hash map for counting occurrences
 
-**Code:**
-```cpp
-bool containsDuplicateBruteForce(vector<int>& nums) {
-    for (int i = 0; i < nums.size(); i++) {
-        for (int j = i + 1; j < nums.size(); j++) {
-            if (nums[i] == nums[j]) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-```
+### Algorithms
+- **Hash-based lookup**: Using `find()` method for O(1) average time complexity
+- **Sorting**: Using `sort()` algorithm for O(n log n) time complexity
 
-## Key C++ Concepts Used
-
-### 1. **Containers**
-- **`vector<int>`**: Dynamic array for storing integers
-- **`unordered_set<int>`**: Hash set for O(1) lookup and insertion
-
-### 2. **Iterators and Range-based For Loops**
-- **Range-based for loop**: `for (int num : nums)` for clean iteration
-- **Iterator operations**: `seen.find(num) != seen.end()` for membership check
-
-### 3. **STL Algorithms**
-- **`sort()`**: For sorting approach
-- **`find()`**: For set membership checking
-
-### 4. **References**
-- **`vector<int>& nums`**: Reference parameter to avoid copying
-
-## Performance Comparison
-
-| Approach | Time Complexity | Space Complexity | Best For |
-|----------|----------------|------------------|----------|
-| Hash Set | O(n) | O(n) | General case |
-| Sorting | O(n log n) | O(1) | Memory-constrained |
-| Brute Force | O(n²) | O(1) | Educational only |
-
-## Edge Cases
-
-1. **Empty array**: Should return false
-2. **Single element**: Should return false
-3. **All duplicates**: Should return true
-4. **Large numbers**: Handle overflow considerations
-5. **Negative numbers**: Works the same as positive numbers
+### C++ Features
+- **Range-based for loop**: `for (int num : nums)` for cleaner iteration
+- **References**: `vector<int>& nums` to avoid copying large arrays
+- **STL containers**: Using standard library containers for efficient operations
 
 ## Related Problems
-
-- [219. Contains Duplicate II](https://leetcode.com/problems/contains-duplicate-ii/)
-- [220. Contains Duplicate III](https://leetcode.com/problems/contains-duplicate-iii/)
-- [26. Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
-- [80. Remove Duplicates from Sorted Array II](https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/)
+- [219. Contains Duplicate II](https://leetcode.com/problems/contains-duplicate-ii/) - Find duplicates within k distance
+- [220. Contains Duplicate III](https://leetcode.com/problems/contains-duplicate-iii/) - Find duplicates within k distance and t value difference
+- [136. Single Number](https://leetcode.com/problems/single-number/) - Find the single element in array of duplicates
+- [268. Missing Number](https://leetcode.com/problems/missing-number/) - Find missing number in array
 
 ## Practice Tips
+1. **Hash-based solutions** are usually the most efficient for duplicate detection
+2. **Consider space constraints** - sorting approach uses O(1) space but O(n log n) time
+3. **Think about early termination** - return as soon as first duplicate is found
+4. **Consider edge cases** - empty arrays, single element arrays
+5. **Choose appropriate container** - `unordered_set` for existence check, `unordered_map` for counting
 
-1. **Start with brute force** to understand the problem
-2. **Think about trade-offs** between time and space complexity
-3. **Consider edge cases** like empty arrays and single elements
-4. **Practice with different data structures** (sets, maps, arrays)
-5. **Understand when to use each approach** based on constraints
+## Test Cases
+```cpp
+// Test Case 1: Contains duplicates
+vector<int> nums1 = {1, 2, 3, 1};
+// Expected: true
 
-## NeetCode Roadmap Position
+// Test Case 2: No duplicates
+vector<int> nums2 = {1, 2, 3, 4};
+// Expected: false
 
-This problem is part of the **Arrays & Hashing** section in the NeetCode roadmap, focusing on:
-- Basic array manipulation
-- Hash set usage
-- Time/space complexity analysis
-- Multiple solution approaches
+// Test Case 3: Multiple duplicates
+vector<int> nums3 = {1, 1, 1, 3, 3, 4, 3, 2, 4, 2};
+// Expected: true
+
+// Test Case 4: Empty array
+vector<int> nums4 = {};
+// Expected: false
+
+// Test Case 5: Single element
+vector<int> nums5 = {1};
+// Expected: false
+```

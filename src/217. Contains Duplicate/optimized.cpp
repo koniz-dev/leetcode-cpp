@@ -1,51 +1,35 @@
 #include <vector>
 #include <unordered_set>
-#include <iostream>
-
 using namespace std;
 
 class Solution {
 public:
-    // Most Efficient Solution: Using Hash Set
-    // Time Complexity: O(n)
-    // Space Complexity: O(n)
+    /*
+     * Contains Duplicate - Optimized Solution using Hash Set
+     * 
+     * Approach:
+     * - Use an unordered_set to track seen numbers
+     * - For each number, check if it already exists in the set
+     * - If found, return true (duplicate exists)
+     * - If not found, add the number to the set and continue
+     * - If loop completes without finding duplicates, return false
+     * 
+     * Time Complexity: O(n) - single pass through the array
+     * Space Complexity: O(n) - hash set can store up to n elements
+     */
     bool containsDuplicate(vector<int>& nums) {
-        unordered_set<int> seen;
+        unordered_set<int> seen; // Track seen numbers
         
         for (int num : nums) {
+            // Check if current number already exists in the set
             if (seen.find(num) != seen.end()) {
-                return true;
+                return true;  // Duplicate found
             }
+            
+            // Add current number to the set
             seen.insert(num);
         }
         
-        return false;
+        return false;  // No duplicates found
     }
 };
-
-// Test cases
-int main() {
-    Solution solution;
-    
-    // Test Case 1: Contains duplicates
-    vector<int> nums1 = {1, 2, 3, 1};
-    cout << "Test 1: [1, 2, 3, 1] -> " << (solution.containsDuplicate(nums1) ? "true" : "false") << endl;
-    
-    // Test Case 2: No duplicates
-    vector<int> nums2 = {1, 2, 3, 4};
-    cout << "Test 2: [1, 2, 3, 4] -> " << (solution.containsDuplicate(nums2) ? "true" : "false") << endl;
-    
-    // Test Case 3: Multiple duplicates
-    vector<int> nums3 = {1, 1, 1, 3, 3, 4, 3, 2, 4, 2};
-    cout << "Test 3: [1, 1, 1, 3, 3, 4, 3, 2, 4, 2] -> " << (solution.containsDuplicate(nums3) ? "true" : "false") << endl;
-    
-    // Test Case 4: Empty array
-    vector<int> nums4 = {};
-    cout << "Test 4: [] -> " << (solution.containsDuplicate(nums4) ? "true" : "false") << endl;
-    
-    // Test Case 5: Single element
-    vector<int> nums5 = {1};
-    cout << "Test 5: [1] -> " << (solution.containsDuplicate(nums5) ? "true" : "false") << endl;
-    
-    return 0;
-}
