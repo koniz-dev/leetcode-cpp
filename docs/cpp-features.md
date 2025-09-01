@@ -1,582 +1,397 @@
-# Modern C++ Features
+# Modern C++23 Features
 
-## Overview
-Modern C++ (C++11 and later) provides many new features that make code more concise, safe, and efficient.
+This document covers modern C++23 features and best practices used in LeetCode solutions.
 
-## Auto Keyword (C++11)
+## 🚀 C++23 Standard Features
 
-### Introduction
-`auto` allows the compiler to automatically deduce the data type from the initializer.
-
-### Basic Usage
+### std::ranges (C++20/23)
+Modern range-based algorithms that work directly with containers.
 
 ```cpp
-// Instead of writing verbose types
-std::vector<int>::iterator it = vec.begin();
-
-// Can write concisely
-auto it = vec.begin();
-
-// With complex types
-auto result = std::make_pair(42, "hello");
-auto lambda = [](int x) { return x * 2; };
-```
-
-### Best Practices
-
-```cpp
-// ✅ Good - clear types
-auto i = 0;           // int
-auto str = "hello";   // const char*
-auto vec = std::vector<int>{1, 2, 3};
-
-// ❌ Avoid - unclear types
-auto result = someComplexFunction();  // Hard to understand return type
-```
-
-## Range-based For Loop (C++11)
-
-### Introduction
-Simple syntax for iterating through containers.
-
-### Basic Usage
-
-```cpp
-#include <vector>
-#include <string>
-
-std::vector<int> nums = {1, 2, 3, 4, 5};
-
-// Iterate by value (copy)
-for (int num : nums) {
-    std::cout << num << " ";
-}
-
-// Iterate by reference (avoid copy)
-for (const int& num : nums) {
-    std::cout << num << " ";
-}
-
-// Iterate by mutable reference
-for (int& num : nums) {
-    num *= 2;
-}
-```
-
-### With Other Containers
-
-```cpp
-// With string
-std::string str = "hello";
-for (char c : str) {
-    std::cout << c << " ";
-}
-
-// With array
-int arr[] = {1, 2, 3, 4, 5};
-for (int num : arr) {
-    std::cout << num << " ";
-}
-
-// With unordered_map
-std::unordered_map<std::string, int> scores = {
-    {"Alice", 95},
-    {"Bob", 87}
-};
-
-for (const auto& pair : scores) {
-    std::cout << pair.first << ": " << pair.second << std::endl;
-}
-```
-
-## Lambda Expressions (C++11)
-
-### Introduction
-Anonymous functions that can be defined inline.
-
-### Basic Syntax
-
-```cpp
-// Syntax: [capture](parameters) -> return_type { body }
-
-// Simple lambda
-auto add = [](int a, int b) { return a + b; };
-int result = add(3, 4);  // 7
-
-// Lambda with capture
-int multiplier = 10;
-auto multiply = [multiplier](int x) { return x * multiplier; };
-int result = multiply(5);  // 50
-```
-
-### Capture Clauses
-
-```cpp
-int x = 10, y = 20;
-
-// Capture by value
-auto lambda1 = [x, y]() { return x + y; };
-
-// Capture by reference
-auto lambda2 = [&x, &y]() { return x + y; };
-
-// Capture all by value
-auto lambda3 = [=]() { return x + y; };
-
-// Capture all by reference
-auto lambda4 = [&]() { return x + y; };
-
-// Mixed capture
-auto lambda5 = [x, &y]() { return x + y; };
-```
-
-### Common Use Cases
-
-```cpp
+#include <ranges>
 #include <vector>
 #include <algorithm>
 
 std::vector<int> nums = {1, 2, 3, 4, 5};
 
-// Sort with lambda
-std::sort(nums.begin(), nums.end(), [](int a, int b) {
-    return a > b;  // Sort in descending order
-});
-
-// Find with lambda
-auto it = std::find_if(nums.begin(), nums.end(), [](int x) {
-    return x % 2 == 0;  // Find first even number
-});
-
-// Transform with lambda
-std::transform(nums.begin(), nums.end(), nums.begin(), [](int x) {
-    return x * x;  // Square each element
-});
-```
-
-## Smart Pointers (C++11)
-
-### Introduction
-Smart pointers automatically manage memory, preventing memory leaks.
-
-### unique_ptr
-
-```cpp
-#include <memory>
-
-// Create unique_ptr
-std::unique_ptr<int> ptr1(new int(42));
-auto ptr2 = std::make_unique<int>(42);  // Preferred
-
-// Transfer ownership
-std::unique_ptr<int> ptr3 = std::move(ptr1);
-
-// Access value
-int value = *ptr2;
-int* rawPtr = ptr2.get();
-
-// Check if valid
-if (ptr2) {
-    std::cout << "Pointer is valid" << std::endl;
+// Traditional C++11 approach
+auto it = std::find(nums.begin(), nums.end(), 3);
+if (it != nums.end()) {
+    return std::distance(nums.begin(), it);
 }
-```
 
-### shared_ptr
-
-```cpp
-#include <memory>
-
-// Create shared_ptr
-auto ptr1 = std::make_shared<int>(42);
-auto ptr2 = ptr1;  // Share ownership
-
-// Check reference count
-std::cout << "Reference count: " << ptr1.use_count() << std::endl;
-
-// Access value
-int value = *ptr1;
-```
-
-### weak_ptr
-
-```cpp
-#include <memory>
-
-auto shared = std::make_shared<int>(42);
-std::weak_ptr<int> weak = shared;
-
-// Check if still valid
-if (auto locked = weak.lock()) {
-    std::cout << "Value: " << *locked << std::endl;
+// Modern C++23 approach
+auto it = std::ranges::find(nums, 3);
+if (it != nums.end()) {
+    return std::ranges::distance(nums.begin(), it);
 }
+
+// Sorting with ranges
+std::ranges::sort(nums);
+std::ranges::reverse(nums);
+
+// Finding min/max
+auto [min_val, max_val] = std::ranges::minmax(nums);
 ```
 
-## Move Semantics (C++11)
+**Benefits of std::ranges:**
+- Cleaner syntax without begin/end iterators
+- Better performance through compiler optimizations
+- Consistent API across all range algorithms
+- More readable and maintainable code
 
-### Introduction
-Move semantics allow efficient transfer of resources instead of copying.
-
-### Move Constructor and Assignment
+### std::views (C++20/23)
+Lazy evaluation views that transform data without creating intermediate containers.
 
 ```cpp
+#include <ranges>
 #include <vector>
 
-class MyClass {
-private:
-    std::vector<int> data;
-    
-public:
-    // Move constructor
-    MyClass(MyClass&& other) noexcept 
-        : data(std::move(other.data)) {}
-    
-    // Move assignment operator
-    MyClass& operator=(MyClass&& other) noexcept {
-        if (this != &other) {
-            data = std::move(other.data);
-        }
-        return *this;
-    }
-};
+std::vector<int> nums = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+// Filter even numbers
+auto even_nums = nums | std::views::filter([](int x) { return x % 2 == 0; });
+
+// Transform numbers (double them)
+auto doubled = nums | std::views::transform([](int x) { return x * 2; });
+
+// Take first 5 elements
+auto first_five = nums | std::views::take(5);
+
+// Drop first 2 elements
+auto without_first_two = nums | std::views::drop(2);
+
+// Combine multiple views
+auto result = nums 
+    | std::views::filter([](int x) { return x % 2 == 0; })
+    | std::views::transform([](int x) { return x * x; })
+    | std::views::take(3);
+
+// Convert view to vector if needed
+std::vector<int> result_vec(result.begin(), result.end());
 ```
 
-### std::move
+**Benefits of std::views:**
+- Memory efficient (no intermediate containers)
+- Lazy evaluation (computation only when needed)
+- Composable (chain multiple operations)
+- Better cache locality and performance
+
+### std::format (C++20/23)
+Type-safe string formatting with compile-time format string checking.
 
 ```cpp
-#include <vector>
-#include <utility>
+#include <format>
+#include <string>
+#include <iostream>
 
-std::vector<int> createVector() {
-    std::vector<int> vec = {1, 2, 3, 4, 5};
-    return vec;  // RVO (Return Value Optimization)
-}
-
-std::vector<int> vec1 = {1, 2, 3};
-std::vector<int> vec2 = std::move(vec1);  // Move vec1 to vec2
-
-// After move, vec1 is in valid but unspecified state
-```
-
-## References
-
-### Introduction
-References provide an alias for existing variables, avoiding copying.
-
-### Lvalue References
-
-```cpp
 int x = 42;
-int& ref = x;  // Reference to x
+std::string name = "World";
+double pi = 3.14159;
 
-ref = 100;  // Modifies x
-std::cout << x << std::endl;  // 100
+// Basic formatting
+auto message1 = std::format("Hello, {}!", name);
+auto message2 = std::format("x = {}, pi = {:.2f}", x, pi);
 
-// Function parameters
-void modifyValue(int& value) {
-    value *= 2;
-}
+// Positional arguments
+auto message3 = std::format("x = {1}, y = {0}", 10, 20);
 
-int num = 10;
-modifyValue(num);  // num becomes 20
+// Format specifiers
+auto message4 = std::format("Hex: {:#x}, Binary: {:#b}", x, x);
+auto message5 = std::format("Width: {:>10}, Center: {:^10}", x, x);
+
+// Custom formatting
+auto message6 = std::format("Vector: [{:}]", std::format("{}", std::views::all(nums)));
+
+std::cout << message1 << std::endl;  // Output: Hello, World!
+std::cout << message2 << std::endl;  // Output: x = 42, pi = 3.14
 ```
 
-### Const References
+**Benefits of std::format:**
+- Type-safe (compile-time checking)
+- Performance (often faster than string concatenation)
+- Readable and maintainable
+- Consistent with other modern languages
+
+### std::expected (C++23)
+Error handling without exceptions, providing a more predictable control flow.
 
 ```cpp
-int x = 42;
-const int& ref = x;  // Const reference
+#include <expected>
+#include <string>
 
-// ref = 100;  // Error: cannot modify through const reference
-
-// Function parameters (avoid copying)
-void printValue(const std::vector<int>& vec) {
-    for (int num : vec) {
-        std::cout << num << " ";
-    }
-}
-```
-
-### Rvalue References (C++11)
-
-```cpp
-int x = 42;
-int&& rref = 42;  // Rvalue reference to temporary
-
-// Function overloading
-void process(int& value) {
-    std::cout << "Lvalue reference" << std::endl;
-}
-
-void process(int&& value) {
-    std::cout << "Rvalue reference" << std::endl;
-}
-
-int num = 10;
-process(num);      // Calls lvalue version
-process(42);       // Calls rvalue version
-```
-
-## Const Correctness
-
-### Introduction
-Const correctness ensures that objects are not modified when they shouldn't be.
-
-### Const Variables
-
-```cpp
-const int MAX_SIZE = 100;
-const double PI = 3.14159;
-
-// const int x;  // Error: must be initialized
-```
-
-### Const Member Functions
-
-```cpp
-class MyClass {
-private:
-    int data;
-    
-public:
-    // Const member function - cannot modify member variables
-    int getData() const {
-        return data;
-    }
-    
-    // Non-const member function - can modify member variables
-    void setData(int value) {
-        data = value;
-    }
-};
-```
-
-### Const Pointers
-
-```cpp
-int x = 42;
-
-const int* ptr1 = &x;        // Pointer to const int
-int* const ptr2 = &x;        // Const pointer to int
-const int* const ptr3 = &x;  // Const pointer to const int
-
-// *ptr1 = 100;  // Error: cannot modify through ptr1
-// ptr2 = nullptr;  // Error: cannot modify ptr2
-// *ptr3 = 100;  // Error: cannot modify through ptr3
-// ptr3 = nullptr;  // Error: cannot modify ptr3
-```
-
-## Templates
-
-### Introduction
-Templates allow writing generic code that works with different types.
-
-### Function Templates
-
-```cpp
-template<typename T>
-T max(T a, T b) {
-    return (a > b) ? a : b;
-}
-
-// Usage
-int result1 = max(10, 20);
-double result2 = max(3.14, 2.71);
-```
-
-### Class Templates
-
-```cpp
-template<typename T>
-class Stack {
-private:
-    std::vector<T> data;
-    
-public:
-    void push(const T& value) {
-        data.push_back(value);
-    }
-    
-    T pop() {
-        if (data.empty()) {
-            throw std::runtime_error("Stack is empty");
-        }
-        T value = data.back();
-        data.pop_back();
-        return value;
-    }
-    
-    bool empty() const {
-        return data.empty();
-    }
-};
-
-// Usage
-Stack<int> intStack;
-Stack<std::string> stringStack;
-```
-
-### Template Specialization
-
-```cpp
-// Primary template
-template<typename T>
-class Container {
-public:
-    void process() {
-        std::cout << "Generic processing" << std::endl;
-    }
-};
-
-// Specialization for int
-template<>
-class Container<int> {
-public:
-    void process() {
-        std::cout << "Int-specific processing" << std::endl;
-    }
-};
-```
-
-## Exception Handling
-
-### Introduction
-Exception handling provides a way to handle errors gracefully.
-
-### Basic Exception Handling
-
-```cpp
-#include <stdexcept>
-
-int divide(int a, int b) {
+std::expected<int, std::string> safe_divide(int a, int b) {
     if (b == 0) {
-        throw std::invalid_argument("Division by zero");
+        return std::unexpected("Division by zero");
     }
     return a / b;
 }
 
-int main() {
-    try {
-        int result = divide(10, 0);
-        std::cout << "Result: " << result << std::endl;
-    } catch (const std::invalid_argument& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-    } catch (const std::exception& e) {
-        std::cerr << "Unknown error: " << e.what() << std::endl;
+std::expected<int, std::string> safe_sqrt(int x) {
+    if (x < 0) {
+        return std::unexpected("Cannot take square root of negative number");
+    }
+    return static_cast<int>(std::sqrt(x));
+}
+
+// Usage
+void process_calculation() {
+    auto result = safe_divide(10, 2);
+    if (result.has_value()) {
+        std::cout << "Result: " << result.value() << std::endl;
+    } else {
+        std::cout << "Error: " << result.error() << std::endl;
     }
     
-    return 0;
+    // Using monadic operations
+    auto final_result = safe_divide(10, 2)
+        .and_then([](int x) { return safe_sqrt(x); });
 }
 ```
 
-### Custom Exceptions
+**Benefits of std::expected:**
+- No exception overhead
+- Predictable error handling
+- Compile-time error checking
+- Functional programming style
+
+### Concepts and Constraints (C++20/23)
+Compile-time requirements checking for templates.
 
 ```cpp
-class MyException : public std::exception {
-private:
-    std::string message;
-    
-public:
-    MyException(const std::string& msg) : message(msg) {}
-    
-    const char* what() const noexcept override {
-        return message.c_str();
+#include <concepts>
+#include <ranges>
+#include <vector>
+
+// Simple concept
+template<typename T>
+concept Numeric = std::integral<T> || std::floating_point<T>;
+
+// Function using concept
+template<Numeric T>
+T add(T a, T b) {
+    return a + b;
+}
+
+// Range concept
+template<typename R>
+concept InputRange = std::ranges::input_range<R>;
+
+// Algorithm using range concept
+template<InputRange R>
+requires std::integral<std::ranges::range_value_t<R>>
+auto sum_range(R&& range) {
+    return std::ranges::fold_left(range, 0, std::plus{});
+}
+
+// Usage
+std::vector<int> nums = {1, 2, 3, 4, 5};
+auto sum = sum_range(nums);  // Works
+// auto sum2 = sum_range("hello");  // Compile error - not integral range
+```
+
+**Benefits of concepts:**
+- Better error messages
+- Compile-time requirements checking
+- More readable template code
+- Better IDE support
+
+## 🔧 Modern C++23 Patterns
+
+### Structured Bindings (C++17/23)
+Clean syntax for extracting multiple values from objects.
+
+```cpp
+#include <map>
+#include <tuple>
+#include <ranges>
+
+// With std::pair
+std::pair<int, std::string> get_pair() {
+    return {42, "answer"};
+}
+
+auto [value, text] = get_pair();
+// value = 42, text = "answer"
+
+// With std::tuple
+auto get_tuple() {
+    return std::make_tuple(1, 2.5, "three");
+}
+
+auto [a, b, c] = get_tuple();
+// a = 1, b = 2.5, c = "three"
+
+// With std::map
+std::map<std::string, int> scores = {{"Alice", 100}, {"Bob", 95}};
+for (const auto& [name, score] : scores) {
+    std::cout << name << ": " << score << std::endl;
+}
+
+// With std::ranges::minmax
+auto [min_val, max_val] = std::ranges::minmax(nums);
+```
+
+### constexpr and constinit (C++11/20/23)
+Compile-time computation and initialization.
+
+```cpp
+// constexpr function
+constexpr int factorial(int n) {
+    return (n <= 1) ? 1 : n * factorial(n - 1);
+}
+
+// Compile-time constant
+constexpr int MAX_SIZE = factorial(10);
+
+// constexpr if (C++17)
+template<typename T>
+auto get_value(T& container) {
+    if constexpr (std::ranges::sized_range<T>) {
+        return container.size();
+    } else {
+        return -1;
     }
+}
+
+// constinit (C++20)
+constinit int global_value = factorial(10);
+```
+
+### Smart Pointers and RAII
+Modern memory management without raw pointers.
+
+```cpp
+#include <memory>
+#include <vector>
+
+// unique_ptr - exclusive ownership
+auto data = std::make_unique<std::vector<int>>();
+data->push_back(42);
+
+// shared_ptr - shared ownership
+auto shared_data = std::make_shared<std::vector<int>>();
+auto data_copy = shared_data;  // Reference count increases
+
+// weak_ptr - non-owning reference
+auto weak_ref = std::weak_ptr(shared_data);
+if (auto locked = weak_ref.lock()) {
+    // Use locked data
+}
+
+// RAII with custom deleter
+auto file_ptr = std::unique_ptr<FILE, decltype(&fclose)>(
+    fopen("data.txt", "r"), fclose);
+```
+
+## 📊 Performance Optimization
+
+### Move Semantics
+Efficient transfer of resources instead of copying.
+
+```cpp
+#include <vector>
+#include <string>
+
+std::vector<std::string> create_strings() {
+    std::vector<std::string> result;
+    result.reserve(1000);
+    
+    for (int i = 0; i < 1000; ++i) {
+        result.emplace_back("String " + std::to_string(i));
+    }
+    
+    return result;  // Move constructor called, not copy
+}
+
+// Usage
+auto strings = create_strings();  // Move assignment
+
+// Explicit move
+std::vector<std::string> source = {"a", "b", "c"};
+std::vector<std::string> destination = std::move(source);
+// source is now empty, destination has the data
+```
+
+### Perfect Forwarding
+Preserve value categories in template functions.
+
+```cpp
+template<typename T>
+void wrapper(T&& arg) {
+    // Forward preserves lvalue/rvalue nature
+    process(std::forward<T>(arg));
+}
+
+// Usage
+std::string str = "hello";
+wrapper(str);           // T = std::string&, arg = std::string&
+wrapper(std::string{}); // T = std::string, arg = std::string&&
+```
+
+## 🧪 Testing Modern C++23 Code
+
+### Compile-time Testing
+```cpp
+// Static assertions
+static_assert(std::ranges::sized_range<std::vector<int>>);
+static_assert(std::integral<int>);
+static_assert(factorial(5) == 120);
+
+// Concept checking
+template<typename T>
+concept Testable = requires(T t) {
+    { t.test() } -> std::convertible_to<bool>;
 };
 
-void riskyFunction() {
-    throw MyException("Something went wrong");
-}
+static_assert(Testable<TestClass>);
 ```
 
-## Best Practices
-
-### 1. Use Modern C++ Features
+### Runtime Testing
 ```cpp
-// ✅ Modern approach
-auto vec = std::vector<int>{1, 2, 3, 4, 5};
-for (const auto& num : vec) {
-    std::cout << num << " ";
-}
+#include <cassert>
+#include <iostream>
 
-// ❌ Old approach
-std::vector<int> vec;
-vec.push_back(1);
-vec.push_back(2);
-// ...
-for (std::vector<int>::iterator it = vec.begin(); it != vec.end(); ++it) {
-    std::cout << *it << " ";
-}
-```
-
-### 2. Prefer Smart Pointers
-```cpp
-// ✅ Smart pointers
-auto ptr = std::make_unique<MyClass>();
-
-// ❌ Raw pointers
-MyClass* ptr = new MyClass();
-// Don't forget to delete!
-```
-
-### 3. Use Const Correctness
-```cpp
-// ✅ Const correct
-void processData(const std::vector<int>& data) {
-    for (int num : data) {
-        std::cout << num << " ";
-    }
-}
-
-// ❌ Not const correct
-void processData(std::vector<int> data) {  // Unnecessary copy
-    for (int num : data) {
-        std::cout << num << " ";
-    }
-}
-```
-
-### 4. Leverage Move Semantics
-```cpp
-// ✅ Move semantics
-std::vector<int> createVector() {
-    std::vector<int> vec = {1, 2, 3, 4, 5};
-    return vec;  // RVO/move
-}
-
-// ❌ Copy semantics
-std::vector<int> createVector() {
-    std::vector<int> vec;
-    vec.push_back(1);
-    vec.push_back(2);
-    // ...
-    return vec;  // Copy
-}
-```
-
-### 5. Use RAII
-```cpp
-// ✅ RAII - Resource Acquisition Is Initialization
-class ResourceManager {
-private:
-    std::unique_ptr<Resource> resource;
+void test_modern_features() {
+    // Test std::ranges
+    std::vector<int> nums = {3, 1, 4, 1, 5};
+    std::ranges::sort(nums);
+    assert(nums == std::vector<int>{1, 1, 3, 4, 5});
     
-public:
-    ResourceManager() : resource(std::make_unique<Resource>()) {}
-    // Destructor automatically cleans up
-};
-
-// ❌ Manual resource management
-class ResourceManager {
-private:
-    Resource* resource;
+    // Test std::views
+    auto even_squares = nums 
+        | std::views::filter([](int x) { return x % 2 == 0; })
+        | std::views::transform([](int x) { return x * x; });
     
-public:
-    ResourceManager() {
-        resource = new Resource();
-    }
+    std::vector<int> result(even_squares.begin(), even_squares.end());
+    assert(result == std::vector<int>{16});  // Only 4^2 = 16
     
-    ~ResourceManager() {
-        delete resource;  // Don't forget!
-    }
-};
+    // Test std::format
+    auto message = std::format("Sum: {}", std::ranges::fold_left(nums, 0, std::plus{}));
+    assert(message == "Sum: 14");
+    
+    std::cout << "All tests passed!" << std::endl;
+}
 ```
+
+## 📚 Learning Resources
+
+### Official Documentation
+- [C++23 Reference](https://en.cppreference.com/w/cpp/23)
+- [std::ranges Tutorial](https://en.cppreference.com/w/cpp/ranges)
+- [std::views Documentation](https://en.cppreference.com/w/cpp/ranges#Range_adaptors)
+- [std::format Reference](https://en.cppreference.com/w/cpp/utility/format/format)
+
+### Best Practices
+- [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/)
+- [Modern C++ Design](https://www.modernescpp.com/)
+- [C++23 Compiler Support](https://en.cppreference.com/w/cpp/compiler_support)
+
+### Online Resources
+- [CppCon Talks](https://www.youtube.com/user/CppCon)
+- [C++ Weekly](https://www.youtube.com/c/CWeekly)
+- [Modern C++ Tutorial](https://github.com/AnthonyCalandra/modern-cpp-features)
+
+---
+
+**Remember: Modern C++23 features make code more readable, efficient, and maintainable. Use them wisely to write better LeetCode solutions! 🚀✨**
