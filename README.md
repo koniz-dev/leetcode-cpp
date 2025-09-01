@@ -1,25 +1,23 @@
-# LeetCode C++23 Solutions Repository
+# LeetCode C++ Solutions Repository
 
-A collection of LeetCode algorithm problem solutions implemented in **C++23** (ISO/IEC 14882:2023). This repository serves as a **learning resource and knowledge base** for modern C++ programming and algorithmic problem-solving.
+A collection of LeetCode algorithm problem solutions implemented in **modern C++**. This repository serves as a **learning platform** to help me become a **master of C++ and DSA** through systematic problem-solving.
 
 ## 🎯 Purpose
 
 This repository is designed for:
-- **Learning modern C++23 features** through practical examples
-- **Storing algorithmic knowledge** and solution approaches
-- **Reference material** for C++23 best practices
-- **Personal study notes** and problem-solving techniques
+- **Learning and mastering DSA concepts** through practical problem-solving
+- **Improving C++ programming skills** using modern features when beneficial
+- **Building comprehensive knowledge** of algorithms and data structures
+- **Systematic learning** to become a C++ and DSA master
 
-## 🚀 C++23 Features Covered
+## 🚀 Modern C++ Features
 
-This repository demonstrates modern C++23 features including:
-- **std::ranges** - Modern range-based algorithms
-- **std::views** - Lazy evaluation and composition
-- **std::format** - Type-safe string formatting
-- **std::expected** - Error handling without exceptions
-- **Concepts** - Compile-time requirements checking
-- **Structured Bindings** - Clean syntax for multiple values
-- **constexpr improvements** - Better compile-time computation
+This repository uses modern C++ features to write clean, efficient, and maintainable solutions:
+- **Modern algorithms** - Range-based algorithms and efficient data processing
+- **Smart containers** - Appropriate data structures for each problem
+- **Error handling** - Robust and safe code practices
+- **Advanced concepts** - Templates, concepts, and compile-time features
+- **Performance optimization** - Move semantics, perfect forwarding, and efficient code
 
 ## 📁 Repository Structure
 
@@ -35,14 +33,14 @@ src/
 │   └── README.md
 └── [Future problems will be added here]
 
-docs/                     # C++23 knowledge base
-├── coding-standards.md   # C++23 coding standards
-├── optimized-checklist.md # Solution quality checklist
+docs/                     # Documentation and templates
+├── coding-standards.md   # Coding style and standards
+├── optimized-checklist.md # Checklist for solution quality
 ├── documentation-guide.md # How to document solutions
-├── cpp-features.md       # Modern C++23 features guide
+├── cpp-features.md       # Modern C++ features reference
 ├── containers.md         # STL containers reference
-├── algorithms.md         # Algorithm patterns
-└── primitive-types.md    # Basic data types
+├── algorithms.md         # Algorithm patterns reference
+└── primitive-types.md    # Basic data types reference
 
 templates/                # Reusable solution templates
 └── optimized_template.cpp # C++23 solution template
@@ -105,12 +103,13 @@ clang++ -std=c++23 -O2 main.cpp -o solution
 
 ## 🎯 Learning Goals
 
-This repository aims to:
-- **Master C++23 features** and modern programming techniques
-- **Improve algorithmic thinking** with contemporary C++
-- **Practice modern C++ programming** best practices
-- **Build comprehensive collection** of C++23 problem solutions
-- **Share knowledge** with the C++ community
+This repository helps me:
+- **Master DSA concepts** through systematic problem-solving
+- **Master C++ programming** using modern features and best practices
+- **Build comprehensive knowledge** of algorithms and data structures
+- **Achieve mastery** in both C++ and DSA
+- **Learn from different approaches** to the same problem
+- **Write high-quality, efficient code** using appropriate C++ features
 
 ## 📊 Progress Tracking
 
@@ -142,6 +141,6 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-**Happy Learning with C++23! 🚀✨**
+**Happy Learning! 🚀✨**
 
-*This repository is designed as a knowledge base and learning resource. Focus on understanding the concepts and modern C++ techniques rather than complex build systems.*
+*This repository is designed for comprehensive learning and mastery building, focusing on DSA concepts and modern C++ programming.*
