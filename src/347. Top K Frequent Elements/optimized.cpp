@@ -1,22 +1,21 @@
 #include <vector>
 #include <unordered_map>
-#include <queue>
 #include <algorithm>
 using namespace std;
 
 class Solution {
 public:
     /*
-     * Top K Frequent Elements - Optimized Solution using Heap (Priority Queue)
+     * Top K Frequent Elements - Most Optimized Solution using Bucket Sort
      * 
      * Approach:
      * - Count frequency of each element using unordered_map
-     * - Use min-heap to maintain top K frequent elements efficiently
-     * - For each element, add to heap and remove smallest if heap size > k
-     * - Extract elements from heap to get final result
+     * - Create buckets where bucket[i] contains all elements with frequency i
+     * - Traverse buckets from highest frequency to lowest
+     * - Collect elements until we have k elements
      * 
-     * Time Complexity: O(n log k) - n elements processed, heap operations are O(log k)
-     * Space Complexity: O(n + k) - frequency map O(n) + heap O(k)
+     * Time Complexity: O(n) - Single pass through array + single pass through buckets
+     * Space Complexity: O(n) - frequency map + buckets array
      */
     vector<int> topKFrequent(vector<int>& nums, int k) {
         // Step 1: Count frequency of each element
@@ -25,34 +24,30 @@ public:
             freq[num]++;
         }
         
-        // Step 2: Use min-heap to maintain top K frequent elements
-        // Custom comparator: compare by frequency (second element of pair)
-        auto cmp = [](const pair<int, int>& a, const pair<int, int>& b) {
-            return a.second > b.second;  // Min-heap: smaller frequency on top
-        };
-        priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(cmp)> minHeap(cmp);
+        // Step 2: Create buckets - bucket[i] contains elements with frequency i
+        // Maximum possible frequency is nums.size()
+        vector<vector<int>> buckets(nums.size() + 1);
         
-        // Step 3: Process each unique element
+        // Step 3: Group elements by their frequency
         for (const auto& [num, count] : freq) {
-            minHeap.push({num, count});
-            
-            // Keep only top K elements in heap
-            if (minHeap.size() > k) {
-                minHeap.pop();  // Remove element with smallest frequency
-            }
+            buckets[count].push_back(num);
         }
         
-        // Step 4: Extract elements from heap (in reverse order)
+        // Step 4: Collect top K frequent elements from buckets
         vector<int> result;
         result.reserve(k);
         
-        while (!minHeap.empty()) {
-            result.push_back(minHeap.top().first);
-            minHeap.pop();
+        // Traverse buckets from highest frequency to lowest
+        for (int freq = buckets.size() - 1; freq >= 1 && result.size() < k; --freq) {
+            // Add all elements in current frequency bucket
+            for (const int& num : buckets[freq]) {
+                if (result.size() < k) {
+                    result.push_back(num);
+                } else {
+                    break;  // We have enough elements
+                }
+            }
         }
-        
-        // Step 5: Reverse to get elements in descending order of frequency
-        reverse(result.begin(), result.end());
         
         return result;
     }
