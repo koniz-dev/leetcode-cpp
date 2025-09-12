@@ -226,7 +226,7 @@ vector<int> topKFrequent(vector<int>& nums, int k) {
 - [973. K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/)
 
 ## Practice Recommendations
-1. Implement all three approaches to understand trade-offs
+1. Implement all four approaches to understand trade-offs
 2. Practice heap operations and custom comparators
 3. Understand when to use each approach based on constraints
 4. Master frequency counting patterns for array problems
