@@ -71,7 +71,7 @@ vector<int> topKFrequent(vector<int>& nums, int k) {
         freq[num]++;
     }
     
-    // Max-heap: frequency cao nhất ở root
+    // Max-heap: highest frequency at root
     auto cmp = [](const pair<int, int>& a, const pair<int, int>& b) {
         return a.second < b.second;  // Max-heap
     };
