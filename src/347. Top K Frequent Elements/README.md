@@ -59,7 +59,49 @@ vector<int> topKFrequent(vector<int>& nums, int k) {
 - ❌ Not optimal for large datasets
 - ❌ O(n log n) time complexity due to sorting
 
-### Approach 2: Min-Heap (Optimized Solution)
+### Approach 2: Max-Heap (Intuitive Solution)
+**Time Complexity:** O(n log n)  
+**Space Complexity:** O(n)
+
+```cpp
+vector<int> topKFrequent(vector<int>& nums, int k) {
+    // Count frequencies
+    unordered_map<int, int> freq;
+    for (const int& num : nums) {
+        freq[num]++;
+    }
+    
+    // Max-heap: frequency cao nhất ở root
+    auto cmp = [](const pair<int, int>& a, const pair<int, int>& b) {
+        return a.second < b.second;  // Max-heap
+    };
+    priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(cmp)> maxHeap(cmp);
+    
+    // Add all elements to max-heap
+    for (const auto& [num, count] : freq) {
+        maxHeap.push({num, count});
+    }
+    
+    // Extract top k elements
+    vector<int> result;
+    result.reserve(k);
+    for (int i = 0; i < k && !maxHeap.empty(); i++) {
+        result.push_back(maxHeap.top().first);
+        maxHeap.pop();
+    }
+    
+    return result;
+}
+```
+
+**Analysis:**
+- ✅ Very intuitive and easy to understand
+- ✅ Straightforward implementation
+- ✅ Natural approach: build heap → pop k times
+- ❌ O(n log n) time complexity (same as sorting)
+- ❌ Less efficient than min-heap when k << n
+
+### Approach 3: Min-Heap (Space-Optimized Solution)
 **Time Complexity:** O(n log k)  
 **Space Complexity:** O(n + k)
 
@@ -104,7 +146,7 @@ vector<int> topKFrequent(vector<int>& nums, int k) {
 - ✅ Uses heap data structure effectively
 - ✅ Modern C++ features (structured bindings, auto)
 
-### Approach 3: Bucket Sort (Most Optimal)
+### Approach 4: Bucket Sort (Most Optimal)
 **Time Complexity:** O(n)  
 **Space Complexity:** O(n)
 
@@ -146,9 +188,10 @@ vector<int> topKFrequent(vector<int>& nums, int k) {
 ## Key Learning Points
 
 ### 1. Heap Data Structure
-- **Min-heap**: Root has minimum value, useful for maintaining top K elements
-- **Max-heap**: Root has maximum value, useful for different scenarios
+- **Max-heap**: Root has maximum value, intuitive for "top K" problems
+- **Min-heap**: Root has minimum value, space-efficient for maintaining top K elements
 - **Heap operations**: Insert O(log n), Extract O(log n), Peek O(1)
+- **Key insight**: Max-heap is more intuitive, min-heap is more space-efficient
 
 ### 2. Frequency Counting Pattern
 - Use `unordered_map` for O(1) average case insertion and lookup
@@ -156,7 +199,8 @@ vector<int> topKFrequent(vector<int>& nums, int k) {
 - Essential for problems involving counting occurrences
 
 ### 3. Top K Elements Pattern
-- **Heap approach**: O(n log k) - good when k << n
+- **Max-heap approach**: O(n log n) - intuitive, build heap → pop k times
+- **Min-heap approach**: O(n log k) - space-efficient, maintain size k
 - **Sorting approach**: O(n log n) - simple but not optimal
 - **Bucket sort**: O(n) - optimal when frequency range is limited
 
@@ -171,7 +215,8 @@ vector<int> topKFrequent(vector<int>& nums, int k) {
 | Approach | Time | Space | Best Use Case |
 |----------|------|-------|---------------|
 | Sorting | O(n log n) | O(n) | Small datasets, simple implementation |
-| Min-Heap | O(n log k) | O(n + k) | Large datasets, k << n |
+| Max-Heap | O(n log n) | O(n) | Intuitive approach, easy to understand |
+| Min-Heap | O(n log k) | O(n + k) | Large datasets, k << n, space-efficient |
 | Bucket Sort | O(n) | O(n) | Very large datasets, limited frequency range |
 
 ## Related Problems
