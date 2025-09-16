@@ -21,7 +21,6 @@ public:
     // Encode a list of strings to a single string
     string encode(vector<string>& strs) {
         string result;
-        result.reserve(calculateTotalSize(strs)); // Pre-allocate memory for efficiency
         
         for (const auto& str : strs) {
             // Format: "length#string" - length tells us exactly how many chars to read
@@ -54,13 +53,4 @@ public:
         return result;
     }
 
-private:
-    // Helper function to calculate total size for memory pre-allocation
-    size_t calculateTotalSize(const vector<string>& strs) {
-        size_t total = 0;
-        for (const auto& str : strs) {
-            total += str.length() + to_string(str.length()).length() + 1; // +1 for '#'
-        }
-        return total;
-    }
 };
