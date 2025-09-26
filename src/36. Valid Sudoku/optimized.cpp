@@ -14,8 +14,8 @@ public:
      * - Single pass through the board with O(1) lookup and insertion
      * - Calculate 3x3 box index using mathematical formula: (row/3)*3 + (col/3)
      * 
-     * Time Complexity: O(1) - Fixed 81 cells to check, constant time operations
-     * Space Complexity: O(1) - Fixed space for 27 bitsets (9 rows + 9 cols + 9 boxes)
+     * Time Complexity: O(n²) where n = 9 - Must check all n×n cells
+     * Space Complexity: O(n²) where n = 9 - Board storage + 27 bitsets (9 rows + 9 cols + 9 boxes)
      */
     bool isValidSudoku(vector<vector<char>>& board) {
         // Use bitset for efficient space usage - 9 bits per set
