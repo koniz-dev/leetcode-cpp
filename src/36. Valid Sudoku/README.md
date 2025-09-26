@@ -7,11 +7,16 @@ Determine if a 9x9 Sudoku board is valid. Only the filled cells need to be valid
 2. Each column must contain the digits 1-9 without repetition  
 3. Each of the nine 3x3 sub-boxes must contain the digits 1-9 without repetition
 
-**Note:** A Sudoku board (partially filled) could be valid but is not necessarily solvable.
+**Note:**
+- A Sudoku board (partially filled) could be valid but is not necessarily solvable.
+- Only the filled cells need to be validated according to the mentioned rules.
 
 ## Examples
+
+### Example 1: Valid Sudoku
+**Input:**
 ```
-Input: board = [
+board = [
 ["5","3",".",".","7",".",".",".","."],
 ["6",".",".","1","9","5",".",".","."],
 [".","9","8",".",".",".",".","6","."],
@@ -22,9 +27,19 @@ Input: board = [
 [".",".",".","4","1","9",".",".","5"],
 [".",".",".",".","8",".",".","7","9"]
 ]
-Output: true
+```
 
-Input: board = [
+**Output:** `true`
+
+**Explanation:** This is a valid Sudoku board. All filled cells follow the three rules:
+- No duplicate numbers in any row
+- No duplicate numbers in any column  
+- No duplicate numbers in any 3x3 sub-box
+
+### Example 2: Invalid Sudoku
+**Input:**
+```
+board = [
 ["8","3",".",".","7",".",".",".","."],
 ["6",".",".","1","9","5",".",".","."],
 [".","9","8",".",".",".",".","6","."],
@@ -35,8 +50,18 @@ Input: board = [
 [".",".",".","4","1","9",".",".","5"],
 [".",".",".",".","8",".",".","7","9"]
 ]
-Output: false
-Explanation: Same as Example 1, except with the 5 in the top left corner being modified to 8. Since there are two 8's in the top left 3x3 sub-box, it is invalid.
+```
+
+**Output:** `false`
+
+**Explanation:** Same as Example 1, except with the 5 in the top left corner being modified to 8. Since there are two 8's in the top left 3x3 sub-box, it is invalid.
+
+**Visual Analysis:**
+```
+Top-left 3x3 box:
+8 3 .     ← Two 8's in this box!
+6 . .     ← Invalid!
+. 9 8
 ```
 
 ## Solutions
