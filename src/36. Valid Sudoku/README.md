@@ -7,6 +7,61 @@ Determine if a 9x9 Sudoku board is valid. Only the filled cells need to be valid
 2. Each column must contain the digits 1-9 without repetition  
 3. Each of the nine 3x3 sub-boxes must contain the digits 1-9 without repetition
 
+**Note:**
+- A Sudoku board (partially filled) could be valid but is not necessarily solvable
+- Only the filled cells need to be validated according to the mentioned rules
+
+## Examples
+
+### Example 1: Valid Sudoku
+**Input:**
+```
+board = [
+["5","3",".",".","7",".",".",".","."],
+["6",".",".","1","9","5",".",".","."],
+[".","9","8",".",".",".",".","6","."],
+["8",".",".",".","6",".",".",".","3"],
+["4",".",".","8",".","3",".",".","1"],
+["7",".",".",".","2",".",".",".","6"],
+[".","6",".",".",".",".","2","8","."],
+[".",".",".","4","1","9",".",".","5"],
+[".",".",".",".","8",".",".","7","9"]
+]
+```
+**Output:** `true`
+
+**Explanation:** This is a valid Sudoku board. All filled cells follow the rules:
+- No duplicate numbers in any row
+- No duplicate numbers in any column  
+- No duplicate numbers in any 3x3 sub-box
+
+### Example 2: Invalid Sudoku
+**Input:**
+```
+board = [
+["8","3",".",".","7",".",".",".","."],
+["6",".",".","1","9","5",".",".","."],
+[".","9","8",".",".",".",".","6","."],
+["8",".",".",".","6",".",".",".","3"],
+["4",".",".","8",".","3",".",".","1"],
+["7",".",".",".","2",".",".",".","6"],
+[".","6",".",".",".",".","2","8","."],
+[".",".",".","4","1","9",".",".","5"],
+[".",".",".",".","8",".",".","7","9"]
+]
+```
+**Output:** `false`
+
+**Explanation:** Same as Example 1, except with the 5 in the top left corner being modified to 8. Since there are two 8's in the top left 3x3 sub-box, it is invalid.
+
+**Visual Analysis:**
+```
+Top-left 3x3 box:
+8 3 .     ← Two 8's in this box!
+6 . .     ← Invalid!
+. 9 8
+```
+
 ## DSA Concepts Used
 
 ### 1. Hash Set / Set Data Structure
@@ -79,6 +134,45 @@ Determine if a 9x9 Sudoku board is valid. Only the filled cells need to be valid
 ### Space Complexity: O(1)
 - **Explanation**: Fixed space for 27 bitsets (9 rows + 9 cols + 9 boxes)
 - **Storage**: 27 × 9 bits = 243 bits ≈ 30 bytes
+
+## Step-by-Step Execution
+
+### Example 1 Execution (Valid Board)
+Let's trace through the optimized solution with the valid board:
+
+```cpp
+// Initialize: rows[9], cols[9], boxes[9] all empty bitsets
+
+// Check position (0,0): board[0][0] = '5'
+num = '5' - '1' = 4
+boxIndex = (0/3)*3 + (0/3) = 0
+// Check: rows[0][4], cols[0][4], boxes[0][4] all false ✓
+// Set: rows[0].set(4), cols[0].set(4), boxes[0].set(4)
+
+// Check position (0,1): board[0][1] = '3'  
+num = '3' - '1' = 2
+boxIndex = (0/3)*3 + (1/3) = 0
+// Check: rows[0][2], cols[1][2], boxes[0][2] all false ✓
+// Set: rows[0].set(2), cols[1].set(2), boxes[0].set(2)
+
+// Continue for all filled cells...
+// Result: All checks pass, return true
+```
+
+### Example 2 Execution (Invalid Board)
+```cpp
+// Check position (0,0): board[0][0] = '8'
+num = '8' - '1' = 7
+boxIndex = (0/3)*3 + (0/3) = 0
+// Check: rows[0][7], cols[0][7], boxes[0][7] all false ✓
+// Set: rows[0].set(7), cols[0].set(7), boxes[0].set(7)
+
+// Check position (2,2): board[2][2] = '8'
+num = '8' - '1' = 7  
+boxIndex = (2/3)*3 + (2/3) = 0  // Same box as (0,0)!
+// Check: rows[2][7], cols[2][7] false ✓, but boxes[0][7] true ✗
+// Return false immediately - duplicate found in box 0
+```
 
 ## Key Learning Points
 
