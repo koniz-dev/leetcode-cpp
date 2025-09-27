@@ -82,6 +82,38 @@ int longestConsecutive(vector<int>& nums) {
 
 **Why Suboptimal**: Sorting takes O(n log n) time, which doesn't meet the O(n) requirement.
 
+```cpp
+int longestConsecutive(vector<int>& nums) {
+    if (nums.empty()) return 0;
+    
+    // Sort the array - O(n log n)
+    sort(nums.begin(), nums.end());
+    
+    int maxLength = 1;
+    int currentLength = 1;
+    
+    // Count consecutive sequences - O(n)
+    for (int i = 1; i < nums.size(); i++) {
+        if (nums[i] == nums[i-1] + 1) {
+            // Consecutive number found
+            currentLength++;
+        } else if (nums[i] == nums[i-1]) {
+            // Duplicate number, skip
+            continue;
+        } else {
+            // Sequence broken, update max and reset
+            maxLength = max(maxLength, currentLength);
+            currentLength = 1;
+        }
+    }
+    
+    // Don't forget the last sequence
+    maxLength = max(maxLength, currentLength);
+    
+    return maxLength;
+}
+```
+
 ### Approach 3: Union-Find (Advanced)
 **Time Complexity**: O(n α(n)) where α is the inverse Ackermann function  
 **Space Complexity**: O(n)
@@ -92,6 +124,69 @@ int longestConsecutive(vector<int>& nums) {
 3. Find the size of the largest connected component
 
 **When to Use**: More complex but useful for understanding advanced data structures.
+
+```cpp
+class UnionFind {
+private:
+    vector<int> parent;
+    vector<int> size;
+    
+public:
+    UnionFind(int n) : parent(n), size(n, 1) {
+        iota(parent.begin(), parent.end(), 0);
+    }
+    
+    int find(int x) {
+        if (parent[x] != x) {
+            parent[x] = find(parent[x]); // Path compression
+        }
+        return parent[x];
+    }
+    
+    void unite(int x, int y) {
+        int px = find(x), py = find(y);
+        if (px != py) {
+            if (size[px] < size[py]) swap(px, py);
+            parent[py] = px;
+            size[px] += size[py];
+        }
+    }
+    
+    int getSize(int x) {
+        return size[find(x)];
+    }
+};
+
+int longestConsecutive(vector<int>& nums) {
+    if (nums.empty()) return 0;
+    
+    // Create mapping from value to index
+    unordered_map<int, int> valueToIndex;
+    for (int i = 0; i < nums.size(); i++) {
+        valueToIndex[nums[i]] = i;
+    }
+    
+    UnionFind uf(nums.size());
+    
+    // Union consecutive numbers
+    for (int i = 0; i < nums.size(); i++) {
+        int num = nums[i];
+        
+        // Check if num+1 exists and union them
+        if (valueToIndex.count(num + 1)) {
+            uf.unite(i, valueToIndex[num + 1]);
+        }
+    }
+    
+    // Find the largest component size
+    int maxSize = 1;
+    for (int i = 0; i < nums.size(); i++) {
+        maxSize = max(maxSize, uf.getSize(i));
+    }
+    
+    return maxSize;
+}
+```
 
 ## Learning Points
 

@@ -61,6 +61,55 @@ Decode:
 
 Use escape sequences for special characters (e.g., `\:` for colon, `\#` for hash).
 
+```cpp
+class Codec {
+public:
+    string encode(vector<string>& strs) {
+        string result;
+        for (const string& str : strs) {
+            for (char c : str) {
+                if (c == '\\') {
+                    result += "\\\\";  // Escape backslash
+                } else if (c == ':') {
+                    result += "\\:";   // Escape colon
+                } else {
+                    result += c;
+                }
+            }
+            result += ":;";  // Delimiter between strings
+        }
+        return result;
+    }
+    
+    vector<string> decode(string s) {
+        vector<string> result;
+        string current;
+        
+        for (int i = 0; i < s.length(); i++) {
+            if (s[i] == '\\' && i + 1 < s.length()) {
+                // Handle escape sequence
+                if (s[i + 1] == '\\') {
+                    current += '\\';
+                    i++; // Skip next backslash
+                } else if (s[i + 1] == ':') {
+                    current += ':';
+                    i++; // Skip next colon
+                }
+            } else if (s[i] == ':' && i + 1 < s.length() && s[i + 1] == ';') {
+                // End of string delimiter
+                result.push_back(current);
+                current.clear();
+                i++; // Skip semicolon
+            } else {
+                current += s[i];
+            }
+        }
+        
+        return result;
+    }
+};
+```
+
 **Limitations:**
 - More complex to implement and debug
 - Requires defining comprehensive escape sequences
@@ -71,6 +120,72 @@ Use escape sequences for special characters (e.g., `\:` for colon, `\#` for hash
 **Space Complexity:** O(1)
 
 Convert strings to base64 format, separate with delimiters.
+
+```cpp
+#include <sstream>
+#include <iomanip>
+
+class Codec {
+private:
+    string base64_encode(const string& input) {
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+        string result;
+        int val = 0, valb = -6;
+        
+        for (unsigned char c : input) {
+            val = (val << 8) + c;
+            valb += 8;
+            while (valb >= 0) {
+                result.push_back(chars[(val >> valb) & 0x3F]);
+                valb -= 6;
+            }
+        }
+        if (valb > -6) result.push_back(chars[((val << 8) >> (valb + 8)) & 0x3F]);
+        while (result.size() % 4) result.push_back('=');
+        return result;
+    }
+    
+    string base64_decode(const string& input) {
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+        string result;
+        int val = 0, valb = -8;
+        
+        for (char c : input) {
+            if (chars.find(c) == string::npos) break;
+            val = (val << 6) + chars.find(c);
+            valb += 6;
+            if (valb >= 0) {
+                result.push_back(char((val >> valb) & 0xFF));
+                valb -= 8;
+            }
+        }
+        return result;
+    }
+    
+public:
+    string encode(vector<string>& strs) {
+        string result;
+        for (const string& str : strs) {
+            result += base64_encode(str) + "|";
+        }
+        return result;
+    }
+    
+    vector<string> decode(string s) {
+        vector<string> result;
+        stringstream ss(s);
+        string token;
+        
+        while (getline(ss, token, '|')) {
+            if (!token.empty()) {
+                result.push_back(base64_decode(token));
+            }
+        }
+        
+        return result;
+    }
+};
+```
 
 **Limitations:**
 - Increases string size by ~33%

@@ -33,17 +33,57 @@ Uses `unordered_map` to store each number and its index. For each number, check 
 - `find()` method - Check if key exists in map
 - Return brace initialization `{index1, index2}`
 
-### 2. Brute Force Solution (Not implemented)
+### 2. Brute Force Solution
 **Time Complexity:** O(n²)  
 **Space Complexity:** O(1)
 
 Two nested loops to check all possible pairs.
+
+```cpp
+vector<int> twoSum(vector<int>& nums, int target) {
+    for (int i = 0; i < nums.size(); i++) {
+        for (int j = i + 1; j < nums.size(); j++) {
+            if (nums[i] + nums[j] == target) {
+                return {i, j};
+            }
+        }
+    }
+    return {}; // No solution found
+}
+```
 
 ### 3. Two Pointers Solution (For sorted arrays)
 **Time Complexity:** O(n log n) - due to sorting  
 **Space Complexity:** O(n)
 
 Only applicable when array can be sorted (loses original indices).
+
+```cpp
+vector<int> twoSum(vector<int>& nums, int target) {
+    // Create vector of pairs (value, original_index)
+    vector<pair<int, int>> numsWithIndex;
+    for (int i = 0; i < nums.size(); i++) {
+        numsWithIndex.push_back({nums[i], i});
+    }
+    
+    // Sort by value
+    sort(numsWithIndex.begin(), numsWithIndex.end());
+    
+    int left = 0, right = nums.size() - 1;
+    while (left < right) {
+        int sum = numsWithIndex[left].first + numsWithIndex[right].first;
+        if (sum == target) {
+            return {numsWithIndex[left].second, numsWithIndex[right].second};
+        } else if (sum < target) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+    
+    return {}; // No solution found
+}
+```
 
 ## C++ Knowledge Points
 
@@ -61,10 +101,10 @@ Only applicable when array can be sorted (loses original indices).
 - **Single Pass**: Process array only once
 
 ## Related Problems
-- 3Sum
-- 4Sum
-- Two Sum II (sorted array)
-- Subarray Sum Equals K
+- [15. 3Sum](https://leetcode.com/problems/3sum/)
+- [18. 4Sum](https://leetcode.com/problems/4sum/)
+- [167. Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
+- [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/)
 
 ## Practice Tips
 1. Always consider hash map for lookup optimization
