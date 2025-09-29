@@ -24,7 +24,7 @@ This repository uses modern C++ features to write clean, efficient, and maintain
 ```
 src/
 ├── 1. Two Sum/
-│   ├── main.cpp          # User's personal solution (NEVER modified)
+│   ├── main.cpp          # Personal solution implementation
 │   ├── optimized.cpp     # Most efficient C++23 solution
 │   └── README.md         # Comprehensive documentation
 ├── 36. Valid Sudoku/
@@ -118,55 +118,55 @@ templates/                # Reusable solution templates
 - **Problem**: Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.
 - **Difficulty**: Easy
 - **C++23 Solution**: [View Optimized Solution](src/1.%20Two%20Sum/optimized.cpp)
-- **User Solution**: [View User Solution](src/1.%20Two%20Sum/main.cpp)
+- **Implementation**: [View Implementation](src/1.%20Two%20Sum/main.cpp)
 
 ### 36. Valid Sudoku
 - **Problem**: Determine if a 9x9 Sudoku board is valid.
 - **Difficulty**: Medium
 - **C++23 Solution**: [View Optimized Solution](src/36.%20Valid%20Sudoku/optimized.cpp)
-- **User Solution**: [View User Solution](src/36.%20Valid%20Sudoku/main.cpp)
+- **Implementation**: [View Implementation](src/36.%20Valid%20Sudoku/main.cpp)
 
 ### 49. Group Anagrams
 - **Problem**: Given an array of strings `strs`, group the anagrams together.
 - **Difficulty**: Medium
 - **C++23 Solution**: [View Optimized Solution](src/49.%20Group%20Anagrams/optimized.cpp)
-- **User Solution**: [View User Solution](src/49.%20Group%20Anagrams/main.cpp)
+- **Implementation**: [View Implementation](src/49.%20Group%20Anagrams/main.cpp)
 
 ### 128. Longest Consecutive Sequence
 - **Problem**: Given an unsorted array of integers `nums`, return the length of the longest consecutive elements sequence.
 - **Difficulty**: Medium
 - **C++23 Solution**: [View Optimized Solution](src/128.%20Longest%20Consecutive%20Sequence/optimized.cpp)
-- **User Solution**: [View User Solution](src/128.%20Longest%20Consecutive%20Sequence/main.cpp)
+- **Implementation**: [View Implementation](src/128.%20Longest%20Consecutive%20Sequence/main.cpp)
 
 ### 217. Contains Duplicate
 - **Problem**: Given an integer array `nums`, return `true` if any value appears at least twice in the array, and return `false` if every element is distinct.
 - **Difficulty**: Easy
 - **C++23 Solution**: [View Optimized Solution](src/217.%20Contains%20Duplicate/optimized.cpp)
-- **User Solution**: [View User Solution](src/217.%20Contains%20Duplicate/main.cpp)
+- **Implementation**: [View Implementation](src/217.%20Contains%20Duplicate/main.cpp)
 
 ### 238. Product of Array Except Self
 - **Problem**: Given an integer array `nums`, return an array `answer` such that `answer[i]` is equal to the product of all the elements of `nums` except `nums[i]`.
 - **Difficulty**: Medium
 - **C++23 Solution**: [View Optimized Solution](src/238.%20Product%20of%20Array%20Except%20Self/optimized.cpp)
-- **User Solution**: [View User Solution](src/238.%20Product%20of%20Array%20Except%20Self/main.cpp)
+- **Implementation**: [View Implementation](src/238.%20Product%20of%20Array%20Except%20Self/main.cpp)
 
 ### 242. Valid Anagram
 - **Problem**: Given two strings `s` and `t`, return `true` if `t` is an anagram of `s`, and `false` otherwise.
 - **Difficulty**: Easy
 - **C++23 Solution**: [View Optimized Solution](src/242.%20Valid%20Anagram/optimized.cpp)
-- **User Solution**: [View User Solution](src/242.%20Valid%20Anagram/main.cpp)
+- **Implementation**: [View Implementation](src/242.%20Valid%20Anagram/main.cpp)
 
 ### 271. Encode and Decode Strings
 - **Problem**: Design an algorithm to encode a list of strings to a string and decode the string back to the original list of strings.
 - **Difficulty**: Medium
 - **C++23 Solution**: [View Optimized Solution](src/271.%20Encode%20and%20Decode%20Strings/optimized.cpp)
-- **User Solution**: [View User Solution](src/271.%20Encode%20and%20Decode%20Strings/main.cpp)
+- **Implementation**: [View Implementation](src/271.%20Encode%20and%20Decode%20Strings/main.cpp)
 
 ### 347. Top K Frequent Elements
 - **Problem**: Given an integer array `nums` and an integer `k`, return the `k` most frequent elements.
 - **Difficulty**: Medium
 - **C++23 Solution**: [View Optimized Solution](src/347.%20Top%20K%20Frequent%20Elements/optimized.cpp)
-- **User Solution**: [View User Solution](src/347.%20Top%20K%20Frequent%20Elements/main.cpp)
+- **Implementation**: [View Implementation](src/347.%20Top%20K%20Frequent%20Elements/main.cpp)
 
 ## 🛠️ Development Setup
 
