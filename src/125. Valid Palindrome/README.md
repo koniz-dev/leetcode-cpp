@@ -1,8 +1,6 @@
 # 125. Valid Palindrome
 
-**Problem Link:** [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/)
-
-## Problem Description
+## Problem Statement
 
 A phrase is a **palindrome** if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward.
 
@@ -33,73 +31,25 @@ Since an empty string reads the same forward and backward, it is a palindrome.
 
 ## Solution Approaches
 
-### Approach 1: Two Pointers (Optimized) - O(n) Time, O(1) Space
+### Approach 1: Two Pointers (Optimized)
 
 **Key Insight:** Use two pointers to compare characters from both ends, skipping non-alphanumeric characters in-place.
 
-```cpp
-bool isPalindrome(string s) {
-    int left = 0;
-    int right = s.size() - 1;
-    
-    while (left < right) {
-        // Skip non-alphanumeric characters from left
-        while (left < right && !isalnum(s[left])) {
-            left++;
-        }
-        
-        // Skip non-alphanumeric characters from right
-        while (left < right && !isalnum(s[right])) {
-            right--;
-        }
-        
-        // Compare characters (case-insensitive)
-        if (tolower(s[left]) != tolower(s[right])) {
-            return false;
-        }
-        
-        left++;
-        right--;
-    }
-    
-    return true;
-}
-```
+**Implementation:** See `optimized.cpp` for the complete implementation.
 
 **Time Complexity:** O(n) - Single pass through the string  
 **Space Complexity:** O(1) - Only using constant extra space
 
-### Approach 2: String Cleaning + Two Pointers - O(n) Time, O(n) Space
+### Approach 2: String Cleaning + Two Pointers
 
 **Key Insight:** First clean the string by removing non-alphanumeric characters and converting to lowercase, then use two pointers.
 
-```cpp
-bool isPalindrome(string s) {
-    string cleaned;
-    for (char c : s) {
-        if (isalnum(c)) {
-            cleaned += tolower(c);
-        }
-    }
-    
-    int left = 0;
-    int right = cleaned.size() - 1;
-    while (left < right) {
-        if (cleaned[left] != cleaned[right]) {
-            return false;
-        }
-        left++;
-        right--;
-    }
-    
-    return true;
-}
-```
+**Implementation:** See `main.cpp` for the complete implementation.
 
 **Time Complexity:** O(n) - Two passes through the string  
 **Space Complexity:** O(n) - Additional string for cleaned version
 
-### Approach 3: Reverse and Compare - O(n) Time, O(n) Space
+### Approach 3: Reverse and Compare
 
 **Key Insight:** Clean the string and compare it with its reverse.
 
