@@ -12,6 +12,8 @@ The **Two Pointers** technique is a powerful algorithmic pattern that uses two p
 ## 🚀 **Common Patterns**
 
 ### 1. **Opposite Directional** (Two pointers moving in opposite directions)
+
+#### **Example 1: Two Sum in Sorted Array**
 ```cpp
 // Find pair of elements with sum equal to target in sorted array
 vector<int> twoSum(vector<int>& nums, int target) {
@@ -28,6 +30,30 @@ vector<int> twoSum(vector<int>& nums, int target) {
         }
     }
     return {};
+}
+```
+
+#### **Example 2: Container With Most Water**
+```cpp
+// Find maximum area between two vertical lines
+int maxArea(vector<int>& height) {
+    int maxArea = 0;
+    int left = 0, right = height.size() - 1;
+    
+    while (left < right) {
+        int width = right - left;
+        int minHeight = min(height[left], height[right]);
+        int area = width * minHeight;
+        maxArea = max(maxArea, area);
+        
+        // Key insight: Move the shorter pointer
+        if (height[left] < height[right]) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+    return maxArea;
 }
 ```
 
@@ -112,6 +138,16 @@ while (left < right && nums[right] == nums[right + 1]) right--;
 if (nums[left] + nums[right] > target) {
     // All remaining pairs will be > target
     break;
+}
+```
+
+### **4. Greedy Choice in Container Problems**
+```cpp
+// In Container With Most Water, always move the shorter pointer
+if (height[left] < height[right]) {
+    left++;  // Moving taller pointer can only decrease area
+} else {
+    right--;
 }
 ```
 
