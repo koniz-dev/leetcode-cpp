@@ -60,6 +60,42 @@ int maxArea(vector<int>& height) {
 **Time Complexity**: O(n)  
 **Space Complexity**: O(1)
 
+#### **Example 3: Trapping Rain Water**
+```cpp
+// Calculate trapped rainwater using two pointers
+int trap(vector<int>& height) {
+    if (height.empty()) return 0;
+    
+    int left = 0, right = height.size() - 1;
+    int maxLeft = 0, maxRight = 0;
+    int trappedWater = 0;
+    
+    while (left < right) {
+        // Move pointer with smaller height
+        if (height[left] < height[right]) {
+            if (height[left] >= maxLeft) {
+                maxLeft = height[left];  // Update max from left
+            } else {
+                trappedWater += maxLeft - height[left];  // Add trapped water
+            }
+            left++;
+        } else {
+            if (height[right] >= maxRight) {
+                maxRight = height[right];  // Update max from right
+            } else {
+                trappedWater += maxRight - height[right];  // Add trapped water
+            }
+            right--;
+        }
+    }
+    return trappedWater;
+}
+```
+
+**Key Insight**: Water level at any position = min(maxLeft, maxRight)  
+**Time Complexity**: O(n) - Single pass  
+**Space Complexity**: O(1) - Constant space
+
 ### 2. **Same Directional** (Two pointers moving in same direction)
 ```cpp
 // Remove duplicate elements from sorted array
@@ -114,7 +150,7 @@ bool hasCycle(ListNode* head) {
 - [283. Move Zeroes](https://leetcode.com/problems/move-zeroes/)
 
 ### **Hard Level**
-- [42. Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)
+- [42. Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) - Water level calculation
 - [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
 
 ## 💡 **Key Insights**
@@ -148,6 +184,21 @@ if (height[left] < height[right]) {
     left++;  // Moving taller pointer can only decrease area
 } else {
     right--;
+}
+```
+
+### **5. Water Level Calculation in Trapping Rain Water**
+```cpp
+// Key insight: Water level = min(maxLeft, maxRight)
+// Move pointer with smaller height to ensure we know the water level
+if (height[left] < height[right]) {
+    // Process left side - we know maxRight >= height[right] >= height[left]
+    if (height[left] >= maxLeft) {
+        maxLeft = height[left];  // No water trapped
+    } else {
+        trappedWater += maxLeft - height[left];  // Water trapped
+    }
+    left++;
 }
 ```
 
