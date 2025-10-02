@@ -19,154 +19,42 @@ This repository uses modern C++ features to write clean, efficient, and maintain
 - **Advanced concepts** - Templates, concepts, and compile-time features
 - **Performance optimization** - Move semantics, perfect forwarding, and efficient code
 
-## 📁 Repository Structure
-
-```
-src/
-├── 1. Two Sum/
-│   ├── main.cpp          # Personal solution implementation
-│   ├── optimized.cpp     # Most efficient C++23 solution
-│   └── README.md         # Comprehensive documentation
-├── 36. Valid Sudoku/
-├── 49. Group Anagrams/
-├── 128. Longest Consecutive Sequence/
-├── 217. Contains Duplicate/
-├── 238. Product of Array Except Self/
-├── 242. Valid Anagram/
-├── 271. Encode and Decode Strings/
-├── 347. Top K Frequent Elements/
-└── [Future problems will be added here]
-
-docs/                     # Comprehensive learning documentation
-├── categories/           # Problem categorization
-│   └── arrays-strings.md
-├── cpp/                  # C++ programming concepts
-│   ├── advanced-concurrency.md
-│   ├── advanced-stl.md
-│   ├── arrays-vectors.md
-│   ├── basic-syntax.md
-│   ├── compiler-internals.md
-│   ├── concurrency.md
-│   ├── control-flow.md
-│   ├── custom-stl.md
-│   ├── data-types.md
-│   ├── design-patterns.md
-│   ├── exception-handling.md
-│   ├── functions.md
-│   ├── fundamentals.md
-│   ├── io-operations.md
-│   ├── lambda-expressions.md
-│   ├── memory-management.md
-│   ├── modern-features.md
-│   ├── move-semantics.md
-│   ├── oop-concepts.md
-│   ├── performance-optimization.md
-│   ├── smart-pointers.md
-│   ├── stl-algorithms.md
-│   ├── stl-containers.md
-│   ├── strings.md
-│   ├── template-metaprogramming.md
-│   └── templates.md
-├── dsa/                  # Data Structures & Algorithms
-│   ├── advanced-dp.md
-│   ├── advanced-graphs.md
-│   ├── advanced-string-matching.md
-│   ├── advanced-trees.md
-│   ├── algorithm-design.md
-│   ├── basic-algorithms.md
-│   ├── basic-data-structures.md
-│   ├── basics.md
-│   ├── competitive-programming.md
-│   ├── complexity-analysis.md
-│   ├── core-patterns.md
-│   ├── custom-data-structures.md
-│   ├── geometric-algorithms.md
-│   ├── introduction.md
-│   ├── network-flow.md
-│   ├── problem-creation.md
-│   ├── research-algorithms.md
-│   └── string-algorithms.md
-├── patterns/             # Algorithm patterns
-│   ├── backtracking.md
-│   ├── binary-search.md
-│   ├── dynamic-programming.md
-│   ├── graph-algorithms.md
-│   ├── greedy.md
-│   ├── sliding-window.md
-│   ├── tree-traversal.md
-│   └── two-pointers.md
-├── LEARNING_ROADMAP.md   # Comprehensive learning path
-└── README.md
-
-templates/                # Reusable solution templates
-└── optimized_template.cpp # C++23 solution template
-```
 
 ## 📚 Problems Solved
 
-### 🎯 Array & Hashing (Neetcode Roadmap)
-*These 9 problems represent the core Array & Hashing patterns from the Neetcode 150 roadmap*
-
-**Key Patterns Covered:**
+### 🎯 Array & Hashing
+**Key Patterns:**
 - **Hash Map/Set**: Two Sum, Contains Duplicate, Valid Anagram, Group Anagrams
 - **Array Manipulation**: Product of Array Except Self, Longest Consecutive Sequence
 - **String Processing**: Valid Anagram, Group Anagrams, Encode and Decode Strings
 - **Matrix/2D Arrays**: Valid Sudoku
 - **Frequency Counting**: Top K Frequent Elements, Valid Anagram, Group Anagrams
 
-### 1. Two Sum
-- **Problem**: Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.
-- **Difficulty**: Easy
-- **C++23 Solution**: [View Optimized Solution](src/1.%20Two%20Sum/optimized.cpp)
-- **Implementation**: [View Implementation](src/1.%20Two%20Sum/main.cpp)
+**Problems:**
+- **[1. Two Sum](src/1.%20Two%20Sum/)** - Easy
+- **[36. Valid Sudoku](src/36.%20Valid%20Sudoku/)** - Medium  
+- **[49. Group Anagrams](src/49.%20Group%20Anagrams/)** - Medium
+- **[128. Longest Consecutive Sequence](src/128.%20Longest%20Consecutive%20Sequence/)** - Medium
+- **[217. Contains Duplicate](src/217.%20Contains%20Duplicate/)** - Easy
+- **[238. Product of Array Except Self](src/238.%20Product%20of%20Array%20Except%20Self/)** - Medium
+- **[242. Valid Anagram](src/242.%20Valid%20Anagram/)** - Easy
+- **[271. Encode and Decode Strings](src/271.%20Encode%20and%20Decode%20Strings/)** - Medium
+- **[347. Top K Frequent Elements](src/347.%20Top%20K%20Frequent%20Elements/)** - Medium
 
-### 36. Valid Sudoku
-- **Problem**: Determine if a 9x9 Sudoku board is valid.
-- **Difficulty**: Medium
-- **C++23 Solution**: [View Optimized Solution](src/36.%20Valid%20Sudoku/optimized.cpp)
-- **Implementation**: [View Implementation](src/36.%20Valid%20Sudoku/main.cpp)
+### 🎯 Two Pointers
+**Key Patterns:**
+- **Opposite Direction**: Valid Palindrome, Container With Most Water
+- **Same Direction**: Two Sum II - Input Array Is Sorted, 3Sum
+- **Prefix/Suffix Arrays**: Trapping Rain Water
+- **Greedy + Two Pointers**: Container With Most Water
+- **Sorting + Two Pointers**: 3Sum
 
-### 49. Group Anagrams
-- **Problem**: Given an array of strings `strs`, group the anagrams together.
-- **Difficulty**: Medium
-- **C++23 Solution**: [View Optimized Solution](src/49.%20Group%20Anagrams/optimized.cpp)
-- **Implementation**: [View Implementation](src/49.%20Group%20Anagrams/main.cpp)
-
-### 128. Longest Consecutive Sequence
-- **Problem**: Given an unsorted array of integers `nums`, return the length of the longest consecutive elements sequence.
-- **Difficulty**: Medium
-- **C++23 Solution**: [View Optimized Solution](src/128.%20Longest%20Consecutive%20Sequence/optimized.cpp)
-- **Implementation**: [View Implementation](src/128.%20Longest%20Consecutive%20Sequence/main.cpp)
-
-### 217. Contains Duplicate
-- **Problem**: Given an integer array `nums`, return `true` if any value appears at least twice in the array, and return `false` if every element is distinct.
-- **Difficulty**: Easy
-- **C++23 Solution**: [View Optimized Solution](src/217.%20Contains%20Duplicate/optimized.cpp)
-- **Implementation**: [View Implementation](src/217.%20Contains%20Duplicate/main.cpp)
-
-### 238. Product of Array Except Self
-- **Problem**: Given an integer array `nums`, return an array `answer` such that `answer[i]` is equal to the product of all the elements of `nums` except `nums[i]`.
-- **Difficulty**: Medium
-- **C++23 Solution**: [View Optimized Solution](src/238.%20Product%20of%20Array%20Except%20Self/optimized.cpp)
-- **Implementation**: [View Implementation](src/238.%20Product%20of%20Array%20Except%20Self/main.cpp)
-
-### 242. Valid Anagram
-- **Problem**: Given two strings `s` and `t`, return `true` if `t` is an anagram of `s`, and `false` otherwise.
-- **Difficulty**: Easy
-- **C++23 Solution**: [View Optimized Solution](src/242.%20Valid%20Anagram/optimized.cpp)
-- **Implementation**: [View Implementation](src/242.%20Valid%20Anagram/main.cpp)
-
-### 271. Encode and Decode Strings
-- **Problem**: Design an algorithm to encode a list of strings to a string and decode the string back to the original list of strings.
-- **Difficulty**: Medium
-- **C++23 Solution**: [View Optimized Solution](src/271.%20Encode%20and%20Decode%20Strings/optimized.cpp)
-- **Implementation**: [View Implementation](src/271.%20Encode%20and%20Decode%20Strings/main.cpp)
-
-### 347. Top K Frequent Elements
-- **Problem**: Given an integer array `nums` and an integer `k`, return the `k` most frequent elements.
-- **Difficulty**: Medium
-- **C++23 Solution**: [View Optimized Solution](src/347.%20Top%20K%20Frequent%20Elements/optimized.cpp)
-- **Implementation**: [View Implementation](src/347.%20Top%20K%20Frequent%20Elements/main.cpp)
+**Problems:**
+- **[11. Container With Most Water](src/11.%20Container%20With%20Most%20Water/)** - Medium
+- **[15. 3Sum](src/15.%203Sum/)** - Medium
+- **[42. Trapping Rain Water](src/42.%20Trapping%20Rain%20Water/)** - Hard
+- **[125. Valid Palindrome](src/125.%20Valid%20Palindrome/)** - Easy
+- **[167. Two Sum II - Input Array Is Sorted](src/167.%20Two%20Sum%20II%20-%20Input%20Array%20Is%20Sorted/)** - Easy
 
 ## 🛠️ Development Setup
 
@@ -209,16 +97,6 @@ clang++ -std=c++23 -O2 main.cpp -o solution
 - **Include time and space complexity analysis**
 - **Document C++23 features used** in your solution
 
-## 🎯 Learning Goals
-
-This repository helps me:
-- **Master DSA concepts** through systematic problem-solving
-- **Master C++ programming** using modern features and best practices
-- **Build comprehensive knowledge** of algorithms and data structures
-- **Achieve mastery** in both C++ and DSA
-- **Learn from different approaches** to the same problem
-- **Write high-quality, efficient code** using appropriate C++ features
-
 ## 🧠 Learning Approach
 
 ### Comprehensive Documentation System
@@ -237,17 +115,16 @@ This repository helps me:
 
 ## 📊 Progress Tracking
 
-### Current Status
-- **Total Problems**: 9
-- **Array & Hashing (Neetcode)**: 9/9 ✅ **COMPLETED**
-- **Easy**: 3 (Two Sum, Contains Duplicate, Valid Anagram)
-- **Medium**: 6 (Valid Sudoku, Group Anagrams, Longest Consecutive Sequence, Product of Array Except Self, Encode and Decode Strings, Top K Frequent Elements)
-- **Hard**: 0
+### Quick Stats
+- **Total Problems**: 14
+- **Categories**: Array & Hashing, Two Pointers
+- **Easy**: 5 | **Medium**: 8 | **Hard**: 1
 
 ### C++23 Features Used
-- **STL Containers**: std::unordered_map, std::unordered_set, std::priority_queue, std::vector
-- **STL Algorithms**: std::sort, std::transform, std::accumulate, std::ranges
-- **Modern C++**: std::ranges, std::views, std::format, auto keyword, structured bindings
+- **STL Containers**: std::unordered_map, std::unordered_set, std::priority_queue, std::vector, std::string
+- **STL Algorithms**: std::sort, std::transform, std::accumulate, std::ranges, std::is_sorted, std::max_element
+- **Modern C++**: std::ranges, std::views, std::format, auto keyword, structured bindings, constexpr
+- **Two Pointers**: Efficient array traversal, sliding window techniques, greedy algorithms
 
 ## 📖 Learning Resources
 
