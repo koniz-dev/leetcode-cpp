@@ -22,6 +22,7 @@ The stack pattern is one of the most fundamental and widely used patterns in com
 - **Text editor undo/redo**
 - **Game state management**
 - **Recursive algorithm simulation**
+- **Generate Parentheses** (iterative approach)
 
 ### 4. Monotonic Stack Problems
 - **Next greater element** problems
@@ -282,7 +283,44 @@ public:
 };
 ```
 
-### 2. Trapping Rain Water
+### 2. Generate Parentheses (Iterative Approach)
+```cpp
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> results;
+        stack<tuple<string, int, int>> st;
+        
+        // Push initial state: (current_string, open_count, close_count)
+        st.push(make_tuple("", 0, 0));
+        
+        while (!st.empty()) {
+            auto [current, open, close] = st.top();
+            st.pop();
+            
+            // Base case: we've generated a complete valid combination
+            if (open == close && close == n) {
+                results.push_back(current);
+                continue;
+            }
+            
+            // Add opening parenthesis if we haven't used all n
+            if (open < n) {
+                st.push(make_tuple(current + "(", open + 1, close));
+            }
+            
+            // Add closing parenthesis if we have more '(' than ')'
+            if (close < open) {
+                st.push(make_tuple(current + ")", open, close + 1));
+            }
+        }
+        
+        return results;
+    }
+};
+```
+
+### 3. Trapping Rain Water
 ```cpp
 class Solution {
 public:

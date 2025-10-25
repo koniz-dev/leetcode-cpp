@@ -200,7 +200,41 @@ bool isValidSudoku(vector<vector<char>>& board, int row, int col, char digit) {
 }
 ```
 
-### **3. Combination Sum**
+### **3. Generate Parentheses**
+```cpp
+// Generate all valid parentheses combinations
+vector<string> generateParenthesis(int n) {
+    vector<string> result;
+    string current;
+    backtrackParentheses(result, current, 0, 0, n);
+    return result;
+}
+
+void backtrackParentheses(vector<string>& result, string& current, 
+                         int open, int close, int n) {
+    // Base case: we've used all n pairs
+    if (current.length() == 2 * n) {
+        result.push_back(current);
+        return;
+    }
+    
+    // Add opening parenthesis if we haven't used all n
+    if (open < n) {
+        current.push_back('(');
+        backtrackParentheses(result, current, open + 1, close, n);
+        current.pop_back();  // Backtrack
+    }
+    
+    // Add closing parenthesis if we have more '(' than ')'
+    if (close < open) {
+        current.push_back(')');
+        backtrackParentheses(result, current, open, close + 1, n);
+        current.pop_back();  // Backtrack
+    }
+}
+```
+
+### **4. Combination Sum**
 ```cpp
 // Find all combinations with sum equal to target
 vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
@@ -240,6 +274,7 @@ void backtrackCombinationSum(vector<int>& candidates, int target, int start,
 - [78. Subsets](https://leetcode.com/problems/subsets/)
 - [46. Permutations](https://leetcode.com/problems/permutations/)
 - [77. Combinations](https://leetcode.com/problems/combinations/)
+- [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)
 
 ### **Medium Level**
 - [39. Combination Sum](https://leetcode.com/problems/combination-sum/)
