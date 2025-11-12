@@ -56,6 +56,23 @@ This repository uses modern C++ features to write clean, efficient, and maintain
 - **[125. Valid Palindrome](src/125.%20Valid%20Palindrome/)** - Easy
 - **[167. Two Sum II - Input Array Is Sorted](src/167.%20Two%20Sum%20II%20-%20Input%20Array%20Is%20Sorted/)** - Easy
 
+### 🎯 Stack
+**Key Patterns:**
+- **LIFO Operations**: Valid Parentheses, Min Stack, Evaluate Reverse Polish Notation
+- **Monotonic Stack**: Daily Temperatures, Largest Rectangle in Histogram
+- **Expression Evaluation**: Evaluate Reverse Polish Notation
+- **Nested Structure Processing**: Valid Parentheses, Generate Parentheses
+- **Auxiliary Stack**: Min Stack (tracking minimum), Car Fleet (tracking time)
+
+**Problems:**
+- **[20. Valid Parentheses](src/20.%20Valid%20Parentheses/)** - Easy
+- **[22. Generate Parentheses](src/22.%20Generate%20Parentheses/)** - Medium
+- **[84. Largest Rectangle in Histogram](src/84.%20Largest%20Rectangle%20in%20Histogram/)** - Hard
+- **[150. Evaluate Reverse Polish Notation](src/150.%20Evaluate%20Reverse%20Polish%20Notation/)** - Medium
+- **[155. Min Stack](src/155.%20Min%20Stack/)** - Medium
+- **[739. Daily Temperatures](src/739.%20Daily%20Temperatures/)** - Medium
+- **[853. Car Fleet](src/853.%20Car%20Fleet/)** - Medium
+
 ## 🛠️ Development Setup
 
 ### Simple Compilation
@@ -116,15 +133,16 @@ clang++ -std=c++23 -O2 main.cpp -o solution
 ## 📊 Progress Tracking
 
 ### Quick Stats
-- **Total Problems**: 14
-- **Categories**: Array & Hashing, Two Pointers
-- **Easy**: 5 | **Medium**: 8 | **Hard**: 1
+- **Total Problems**: 21
+- **Categories**: Array & Hashing, Two Pointers, Stack
+- **Easy**: 6 | **Medium**: 13 | **Hard**: 2
 
 ### C++23 Features Used
-- **STL Containers**: std::unordered_map, std::unordered_set, std::priority_queue, std::vector, std::string
+- **STL Containers**: std::unordered_map, std::unordered_set, std::priority_queue, std::vector, std::string, std::stack
 - **STL Algorithms**: std::sort, std::transform, std::accumulate, std::ranges, std::is_sorted, std::max_element
-- **Modern C++**: std::ranges, std::views, std::format, auto keyword, structured bindings, constexpr
+- **Modern C++**: std::ranges, std::views, std::format, auto keyword, structured bindings, constexpr, std::tuple
 - **Two Pointers**: Efficient array traversal, sliding window techniques, greedy algorithms
+- **Stack Operations**: LIFO data structure, monotonic stack patterns, expression evaluation, nested structure processing
 
 ## 📖 Learning Resources
 
