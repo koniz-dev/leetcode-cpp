@@ -202,4 +202,3 @@ int binarySearch(vector<int>& nums, int target) {
 5. **Visualize**: Draw the array and trace through the algorithm
 
 Binary search is one of the most fundamental algorithms in computer science and appears frequently in coding interviews. Mastering it is essential for efficient problem-solving.
-
