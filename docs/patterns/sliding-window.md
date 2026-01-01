@@ -9,6 +9,33 @@ The **Sliding Window** technique uses a window that can expand or contract to ef
 - **Fixed size problems** - Find subarray with fixed size
 - **Variable size problems** - Find subarray with variable size
 
+## 📊 **Visual Guide**
+
+### **Variable Window Logic**
+Used for finding the smallest/largest window satisfying a condition.
+
+```mermaid
+graph TD
+    A[Start: left=0, right=0] --> B{right < size?}
+    B -- No --> C[End]
+    B -- Yes --> D[Add nums[right] to Window]
+    D --> E{Condition Violated?}
+    E -- Yes --> F[Remove nums[left]]
+    F --> G[left++]
+    G --> E
+    E -- No --> H[Update Result]
+    H --> I[right++]
+    I --> B
+```
+
+## ⚖️ **Window Types Comparison**
+
+| Window Type | Constraint | Logic | Example |
+|---|---|---|---|
+| **Fixed Size** | `window.size == k` | `add(right), remove(right-k)` | Max Sum Subarray of size K |
+| **Variable (Min)** | `sum >= target` | `expand until valid, then shrink` | Min Subarray Len |
+| **Variable (Max)** | `distinct <= k` | `expand, if invalid shrink` | Longest Substring |
+
 ## 🚀 **Common Patterns**
 
 ### 1. **Fixed Size Window**

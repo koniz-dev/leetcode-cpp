@@ -19,6 +19,36 @@
 - **Pattern Matching** - Pattern search
 - **String Manipulation** - String operations
 
+## 📊 **Visual Guide**
+
+### **Sliding Window Logic**
+Used for finding subarrays (longest, shortest, specific sum).
+
+```mermaid
+graph TD
+    A[Start: left=0, right=0] --> B[Add nums[right] to Window]
+    B --> C{Window Invalid?}
+    C -- Yes --> D[Remove nums[left]]
+    D --> E[left++]
+    E --> C
+    C -- No --> F[Update Best Result]
+    F --> G[right++]
+    G --> B
+```
+
+### **Hash Map Frequency Counting**
+Used for Anagrams, Top K Frequent, Duplicate checking.
+
+```mermaid
+graph LR
+    A[Input Stream] --> B[Read Element]
+    B --> C{Exists in Map?}
+    C -- No --> D[Insert Key : 1]
+    C -- Yes --> E[Increment Count]
+    D --> B
+    E --> B
+```
+
 ## 🚀 **Key Algorithms**
 
 ### **1. Two Pointers**

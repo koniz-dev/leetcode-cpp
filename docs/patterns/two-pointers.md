@@ -9,6 +9,37 @@ The **Two Pointers** technique is a powerful algorithmic pattern that uses two p
 - **Linked List problems** - Cycle detection, middle element, reverse
 - **Sorted data** - Find pairs with sum equal to target
 
+## 📊 **Visual Guide**
+
+### **Converging Pointers (Opposite Direction)**
+Used for Two Sum, Container With Most Water, Palindrome.
+
+```mermaid
+graph TD
+    A[Start: left=0, right=n-1] --> B{left < right?}
+    B -- No --> C[End / Return]
+    B -- Yes --> D{Check Condition}
+    D -- Match --> E[Found Solution]
+    D -- Too Small --> F[left++]
+    D -- Too Large --> G[right--]
+    F --> B
+    G --> B
+```
+
+### **Fast & Slow Pointers (Same Direction)**
+Used for Cycle Detection, Remove Duplicates, Middle of Linked List.
+
+```mermaid
+graph LR
+    A[Start: fast=0, slow=0] --> B{fast < n / fast!=null?}
+    B -- No --> C[End]
+    B -- Yes --> D{Condition Met?}
+    D -- Yes --> E[Update slow / Process]
+    E --> F[fast++]
+    D -- No --> F
+    F --> B
+```
+
 ## 🚀 **Common Patterns**
 
 ### 1. **Opposite Directional** (Two pointers moving in opposite directions)

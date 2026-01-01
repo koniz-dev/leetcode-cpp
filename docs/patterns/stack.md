@@ -30,6 +30,31 @@ The stack pattern is one of the most fundamental and widely used patterns in com
 - **Stock span** problems
 - **Temperature** problems
 
+## 📊 **Visual Guide**
+
+### **Monotonic Stack (Next Greater Element)**
+Maintains a decreasing sequence to find the next larger element.
+
+```mermaid
+graph TD
+    A[Start: Iterate nums] --> B{Stack Empty?}
+    B -- Yes --> C[Push Current Index]
+    B -- No --> D{nums[Top] < Current?}
+    D -- No (Keep Order) --> C
+    D -- Yes (Found Next Greater) --> E[Pop Top]
+    E --> F[Record Answer for Top]
+    F --> B
+```
+
+## ⚖️ **Stack Variations Comparison**
+
+| Stack Type | Invariant Property | Primary Use Case | Example |
+|---|---|---|---|
+| **Standard LIFO** | None | Nested structures, Undo/Redo | Valid Parentheses |
+| **Monotonic Increasing** | Elements increase bottom-to-top | Next Smaller Element | Largest Rectangle Area |
+| **Monotonic Decreasing** | Elements decrease bottom-to-top | Next Greater Element | Daily Temperatures |
+| **Min/Max Stack** | Auxiliary stack tracks min/max | O(1) Min/Max Retrieval | Min Stack |
+
 ## Core Stack Operations
 
 ```cpp
