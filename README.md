@@ -38,12 +38,28 @@ This repository uses modern C++ features to write clean, efficient, and maintain
 - **[217. Contains Duplicate](src/217.%20Contains%20Duplicate/)** - Easy
 - **[238. Product of Array Except Self](src/238.%20Product%20of%20Array%20Except%20Self/)** - Medium
 - **[242. Valid Anagram](src/242.%20Valid%20Anagram/)** - Easy
-- **[271. Encode and Decode Strings](src/271.%20Encode%20and%20Decode%20Strings/)** - Medium
-- **[347. Top K Frequent Elements](src/347.%20Top%20K%20Frequent%20Elements/)** - Medium
-
-### 🎯 Two Pointers
-**Key Patterns:**
-- **Opposite Direction**: Valid Palindrome, Container With Most Water
+41→- **[271. Encode and Decode Strings](src/271.%20Encode%20and%20Decode%20Strings/)** - Medium
+42→- **[347. Top K Frequent Elements](src/347.%20Top%20K%20Frequent%20Elements/)** - Medium
+43→
+44→### 🎯 Binary Search
+45→**Key Patterns:**
+46→- **Classic Binary Search**: Search in sorted arrays
+47→- **Binary Search on Answer**: Optimize over monotonic predicates (Koko Eating Bananas)
+48→- **Binary Search on Rotated/Transformed Data**: Rotated arrays, 2D matrices
+49→- **Binary Search in Time/Value Space**: Time-based key-value store, median of two arrays
+50→
+51→**Problems:**
+52→- **[4. Median of Two Sorted Arrays](src/4.%20Median%20of%20Two%20Sorted%20Arrays/)** - Hard
+53→- **[33. Search in Rotated Sorted Array](src/33.%20Search%20in%20Rotated%20Sorted%20Array/)** - Medium
+54→- **[74. Search a 2D Matrix](src/74.%20Search%20a%202D%20Matrix/)** - Medium
+55→- **[153. Find Minimum in Rotated Sorted Array](src/153.%20Find%20Minimum%20in%20Rotated%20Sorted%20Array/)** - Medium
+56→- **[704. Binary Search](src/704.%20Binary%20Search/)** - Easy
+57→- **[875. Koko Eating Bananas](src/875.%20Koko%20Eating%20Bananas/)** - Medium
+58→- **[981. Time Based Key-Value Store](src/981.%20Time%20Based%20Key-Value%20Store/)** - Medium
+59→
+44→### 🎯 Two Pointers
+45→**Key Patterns:**
+46→- **Opposite Direction**: Valid Palindrome, Container With Most Water
 - **Same Direction**: Two Sum II - Input Array Is Sorted, 3Sum
 - **Prefix/Suffix Arrays**: Trapping Rain Water
 - **Greedy + Two Pointers**: Container With Most Water
@@ -133,9 +149,9 @@ clang++ -std=c++23 -O2 main.cpp -o solution
 ## 📊 Progress Tracking
 
 ### Quick Stats
-- **Total Problems**: 21
-- **Categories**: Array & Hashing, Two Pointers, Stack
-- **Easy**: 6 | **Medium**: 13 | **Hard**: 2
+- **Total Problems**: 28
+- **Categories**: Array & Hashing, Binary Search, Two Pointers, Stack
+- **Easy**: 7 | **Medium**: 18 | **Hard**: 3
 
 ### C++23 Features Used
 - **STL Containers**: std::unordered_map, std::unordered_set, std::priority_queue, std::vector, std::string, std::stack
